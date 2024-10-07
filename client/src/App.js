@@ -25,9 +25,10 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/"                 element={<ProtectedRoute><Customers /></ProtectedRoute>} />
+                <Route path="/gift"            element={<ProtectedRoute><DisplayAllGiftsTabular /></ProtectedRoute>} />
+                { /*
 
-                <Route path="/gifts"            element={<ProtectedRoute><DisplayAllGiftsTabular /></ProtectedRoute>} />
-                <Route path="/gifts/new"        element={<ProtectedRoute><CreateGift /></ProtectedRoute>} />
+                    <Route path="/gifts/new"        element={<ProtectedRoute><CreateGift /></ProtectedRoute>} />
                 <Route path="/gifts/edit"       element={<ProtectedRoute><EditGift /></ProtectedRoute>} />
                 <Route path="/gifts/view"       element={<ProtectedRoute><ViewGift /></ProtectedRoute>} />
 
@@ -40,7 +41,8 @@ function App() {
                 <Route path="/persons/new"      element={<ProtectedRoute><CreatePerson /></ProtectedRoute>} />
                 <Route path="/persons/edit"     element={<ProtectedRoute><EditPerson /></ProtectedRoute>} />
                 <Route path="/persons/view"     element={<ProtectedRoute><ViewPerson /></ProtectedRoute>} />
-
+                    */
+                }
                 <Route path="/login"            element={<Login />} />
                 <Route path="/register"         element={<Register />} />
                 <Route path="/create"           element={<ProtectedRoute><CreateCustomer /></ProtectedRoute>} />

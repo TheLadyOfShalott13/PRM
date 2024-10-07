@@ -5,6 +5,7 @@ import morgan from "morgan";
 import mongoose from "mongoose";
 import userRoute from "./routes/user.js";
 import customerRoute from "./routes/customer.js";
+import giftRoute from "./routes/gift.js";
 import cookieParser from "cookie-parser";
 import cors from "cors"
 
@@ -45,6 +46,7 @@ app.use(morgan("common"));
 
 app.use("/api/users", userRoute);
 app.use("/api/customers", customerRoute);
+app.use("/api/gift", giftRoute);
 
 app.listen(PORT, () => {
     console.log("Listening on port 7700");
