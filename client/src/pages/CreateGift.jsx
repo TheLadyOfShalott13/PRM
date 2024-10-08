@@ -2,10 +2,10 @@ import React, { useContext, useState } from "react";
 import Navbar from '../components/Navbar'
 import axios from "axios";
 import { AuthContext } from "../authContext";
-import "../styles/createCustomer.css"
+import "../styles/forms.css"
 import { useNavigate } from "react-router-dom";
 
-const CreateCustomer = () => {
+const CreateGift = () => {
 
     const [info, setInfo] = useState({});
     const { user } = useContext(AuthContext);
@@ -24,14 +24,14 @@ const CreateCustomer = () => {
 
         const newpost = {
             ...info,
-            company: user._id,
+            user: user._id,
         }
 
         try {
             await axios.post(
-                "http://localhost:7700/api/customers",
+                "http://localhost:7700/api/gift/create",
                 newpost)
-            navigate('/')
+            navigate('/gifts')
         } catch (err) {
             console.log(err);
         }
@@ -39,13 +39,14 @@ const CreateCustomer = () => {
     };
 
     return (
-        <div className="createCustContainer">
+        <div className="newFormContainer">
             <Navbar />
             <div className="cpContainer">
                 <div className="formContainer">
+                    <h1>Add A New Gift</h1>
                     <div className="inputContainer">
                         <div className="input">
-                            <label htmlFor="title">Name</label>
+                            <label htmlFor="name">Name</label>
                             <input
                                 onChange={handleChange}
                                 type="text"
@@ -55,54 +56,30 @@ const CreateCustomer = () => {
                         </div>
 
                         <div className="input">
-                            <label htmlFor="location">Service</label>
+                            <label htmlFor="website">Website</label>
                             <input
                                 onChange={handleChange}
                                 type="text"
-                                id="service"
-                                placeholder="Enter service type"
+                                id="website"
+                                placeholder="Enter website"
                             />
                         </div>
 
                         <div className="input">
-                            <label htmlFor="location">Email</label>
+                            <label htmlFor="location">Threshold</label>
                             <input
                                 onChange={handleChange}
-                                type="email"
-                                id="email"
-                                placeholder="Enter email"
+                                type="number"
+                                min="0"
+                                step="0.01"
+                                id="threshold"
+                                placeholder="Enter threshold"
                             />
-                        </div>
-
-                        <div className="input">
-                            <label htmlFor="price">Phone Number</label>
-                            <input
-                                onChange={handleChange}
-                                type="text"
-                                id="phone"
-                                placeholder="Enter price range"
-                            />
-                        </div>
-
-                        <div className="input">
-                            <label>Choose Status</label>
-                            <select id="status" onChange={handleChange}>
-                                <option key={0} value="none">-</option>
-                                <option key={1} value="not started">
-                                    Not started
-                                </option>
-                                <option key={2} value="ongoing">
-                                    Ongoing
-                                </option>
-                                <option key={3} value="completed">
-                                    Completed
-                                </option>
-                            </select>
                         </div>
 
                         <button className="button"
                             onClick={handleClick} type="submit">
-                            Add Customer
+                            Save New Entry
                         </button>
                     </div>
                 </div>
@@ -111,4 +88,4 @@ const CreateCustomer = () => {
     )
 }
 
-export default CreateCustomer
+export default CreateGift

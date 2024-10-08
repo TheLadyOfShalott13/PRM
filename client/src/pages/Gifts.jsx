@@ -1,6 +1,7 @@
-import React from 'react'
+import React, {useContext} from 'react'
 import useFetch from '../useFetch'
 import { Link } from "react-router-dom";
+import { AuthContext } from '../authContext'
 import MainTable from '../components/ListAllObjectsTable'
 import Navbar from '../components/Navbar'
 import "../styles/tables.css"
@@ -8,8 +9,11 @@ import {Button} from "react-bootstrap";
 
 const DisplayAllGiftsTabular = ({ type }) => {
 
+    const { user } = useContext(AuthContext)
+    const thead = ['name','website','threshold','options'];
+    const options = ['new','edit','delete'];
     // Call useFetch unconditionally
-    const { data } = useFetch(`api/gift/list`)
+    const tbody  = useFetch(`gift/list/${user._id}`)?.data
 
     return (
         <div>
@@ -21,7 +25,7 @@ const DisplayAllGiftsTabular = ({ type }) => {
                         <Link to="/CreateGift">Add New Gift</Link>
                     </Button>
                 </div>
-                <MainTable obj={{ data }} />
+                <MainTable tbody={{tbody}} thead={{thead}} options={{options}}/>
             </div>
         </div>
     )

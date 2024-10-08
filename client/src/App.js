@@ -8,6 +8,7 @@ import Customers from "./pages/Customers";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import CreateCustomer from "./pages/CreateCustomer";
+import CreateGift from "./pages/CreateGift";
 
 function App() {
 
@@ -25,7 +26,9 @@ function App() {
         <BrowserRouter>
             <Routes>
                 <Route path="/"                 element={<ProtectedRoute><Customers /></ProtectedRoute>} />
-                <Route path="/gift"            element={<ProtectedRoute><DisplayAllGiftsTabular /></ProtectedRoute>} />
+
+                <Route path="/Gifts"            element={<ProtectedRoute><DisplayAllGiftsTabular /></ProtectedRoute>} />
+                <Route path="/CreateGift"        element={<ProtectedRoute><CreateGift /></ProtectedRoute>} />
                 { /*
 
                     <Route path="/gifts/new"        element={<ProtectedRoute><CreateGift /></ProtectedRoute>} />

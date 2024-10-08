@@ -47,10 +47,10 @@ export const getOneGift = async (req, res, next) => {
 
 //get all gifts
 export const getAllGifts = async (req, res, next) => {
-    const giftId = req.params.id;
+    const userId = req.params.userId;
 
     try {
-        const gifts = await Gift.find();
+        const gifts = await Gift.find({user:userId});
         res.status(200).json(gifts);
     } catch (err) {
         next(err)
