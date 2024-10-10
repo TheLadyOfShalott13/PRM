@@ -4,6 +4,7 @@ import {
     deleteInterest,
     getInterest,
     updateInterest,
+    getAllInterests
 } from "../controllers/interest.js";
 
 const router = express.Router();
@@ -11,6 +12,7 @@ const router = express.Router();
 router.post("/create", createInterest);
 router.put("/update/:id", updateInterest);
 router.delete("/delete/:id", deleteInterest);
-router.get("/get/:userId", getInterest);
+router.get("/get/:id", getInterest);
+router.get("/list/:userId", getAllInterests);
 
 export default router;

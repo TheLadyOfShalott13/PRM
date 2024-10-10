@@ -13,6 +13,11 @@ import CreateGift from "./pages/gift/CreateGift";
 import ViewGift from "./pages/gift/ViewGift";
 import EditGift from "./pages/gift/EditGift";
 
+//Gift modules
+import DisplayAllInterestsTabular from "./pages/interest/Interests";
+import CreateInterest from "./pages/interest/CreateInterest";
+import EditInterest from "./pages/interest/EditInterest";
+import ViewInterest from "./pages/interest/ViewInterest";
 
 import CreateCustomer from "./pages/CreateCustomer";
 
@@ -37,6 +42,11 @@ function App() {
                 <Route path="/CreateGift"        element={<ProtectedRoute><CreateGift /></ProtectedRoute>} />
                 <Route path="/EditGift/:id"       element={<ProtectedRoute><EditGift /></ProtectedRoute>} />
                 <Route path="/ViewGift/:id"       element={<ProtectedRoute><ViewGift /></ProtectedRoute>} />
+
+                <Route path="/Interests"            element={<ProtectedRoute><DisplayAllInterestsTabular /></ProtectedRoute>} />
+                <Route path="/CreateInterest"        element={<ProtectedRoute><CreateInterest /></ProtectedRoute>} />
+                <Route path="/EditInterest/:id"       element={<ProtectedRoute><EditInterest /></ProtectedRoute>} />
+                <Route path="/ViewInterest/:id"       element={<ProtectedRoute><ViewInterest /></ProtectedRoute>} />
 
                 { /*
 <Route path="/gifts/view"       element={<ProtectedRoute><ViewGift /></ProtectedRoute>} />

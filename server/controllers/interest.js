@@ -21,13 +21,13 @@ export const deleteInterest = async (req, res, next) => {
     }
 };
 
-//not sure yet what to do with this
-export const getInterest = async (req, res, next) => {
+
+export const getOneInterest = async (req, res, next) => {
     const interestId = req.params.id;
 
     try {
-        const interest = await Interest.find({ company: userId });
-        res.status(200).json(customers);
+        const interest = await Interest.find({ _id: interestId });
+        res.status(200).json(interest);
     } catch (err) {
         next(err)
     }
@@ -45,5 +45,17 @@ export const updateInterest = async (req, res, next) => {
         res.status(200).json(interest);
     } catch (err) {
         next(err);
+    }
+}
+
+//get all gifts
+export const getAllInterests = async (req, res, next) => {
+    const userId = req.params.userId;
+
+    try {
+        const interests = await Interest.find({user:userId});
+        res.status(200).json(interests);
+    } catch (err) {
+        next(err)
     }
 }
