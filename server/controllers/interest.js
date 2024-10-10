@@ -48,7 +48,7 @@ export const updateInterest = async (req, res, next) => {
     }
 }
 
-//get all gifts
+//get all interest
 export const getAllInterests = async (req, res, next) => {
     const userId = req.params.userId;
 

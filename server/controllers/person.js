@@ -45,3 +45,26 @@ export const updatePerson = async (req, res, next) => {
         next(err);
     }
 }
+
+//get all persons
+export const getAllPersons = async (req, res, next) => {
+    const userId = req.params.userId;
+
+    try {
+        const persons = await Person.find({user:userId});
+        res.status(200).json(persons);
+    } catch (err) {
+        next(err)
+    }
+}
+
+export const getOnePerson = async (req, res, next) => {
+    const personId = req.params.id;
+
+    try {
+        const person = await Person.find({ _id: personId });
+        res.status(200).json(person);
+    } catch (err) {
+        next(err)
+    }
+}
