@@ -1,13 +1,13 @@
-import React from 'react'
+import React, {Suspense} from 'react'
 import { Table } from 'react-bootstrap';
 
 const MainTable = ({ tbody, thead, options }) => {
 
     var table = {}
-    var val = '';
     table.thead = thead.thead;
     table.tbody = tbody.tbody;
-    table.options = options.options;
+    const optName = options.options_name;
+    const OptComponent = React.lazy(() => import('../options/'+optName+'Options.jsx'));
 
     return (
         <Table striped bordered hover>
@@ -23,7 +23,7 @@ const MainTable = ({ tbody, thead, options }) => {
                     return (<tr key={j}>{
                         table.thead.map( function(index, k) {
                             if (index==='options') {
-                                ele[index] = '';
+                                ele[index] = <Suspense fallback={<div>Loading...</div>}><OptComponent id={ele._id} /></Suspense>
                             }
                             return(<td key={k}>{ele[index]}</td>)
                         } )

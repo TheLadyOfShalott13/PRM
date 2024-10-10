@@ -50,3 +50,16 @@ table th {
 .add-new a {
     color: white;
 }
+
+.tableOptions {
+    padding-left: 5px;
+    color: black;
+}
+
+.tableOptions :hover {
+    color: green;
+}
+
+.feedback-header {
+    padding-top: 20px;
+}

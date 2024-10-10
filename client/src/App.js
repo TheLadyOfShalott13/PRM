@@ -3,12 +3,18 @@ import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom"
 import { useContext } from "react";
 import { AuthContext } from "./authContext";
-import DisplayAllGiftsTabular from "./pages/Gifts";
 import Customers from "./pages/Customers";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+
+//Gift modules
+import DisplayAllGiftsTabular from "./pages/gift/Gifts";
+import CreateGift from "./pages/gift/CreateGift";
+import ViewGift from "./pages/gift/ViewGift";
+import EditGift from "./pages/gift/EditGift";
+
+
 import CreateCustomer from "./pages/CreateCustomer";
-import CreateGift from "./pages/CreateGift";
 
 function App() {
 
@@ -29,11 +35,11 @@ function App() {
 
                 <Route path="/Gifts"            element={<ProtectedRoute><DisplayAllGiftsTabular /></ProtectedRoute>} />
                 <Route path="/CreateGift"        element={<ProtectedRoute><CreateGift /></ProtectedRoute>} />
-                { /*
+                <Route path="/EditGift"       element={<ProtectedRoute><EditGift /></ProtectedRoute>} />
+                <Route path="/ViewGift/:id"       element={<ProtectedRoute><ViewGift /></ProtectedRoute>} />
 
-                    <Route path="/gifts/new"        element={<ProtectedRoute><CreateGift /></ProtectedRoute>} />
-                <Route path="/gifts/edit"       element={<ProtectedRoute><EditGift /></ProtectedRoute>} />
-                <Route path="/gifts/view"       element={<ProtectedRoute><ViewGift /></ProtectedRoute>} />
+                { /*
+<Route path="/gifts/view"       element={<ProtectedRoute><ViewGift /></ProtectedRoute>} />
 
                 <Route path="/interests"        element={<ProtectedRoute><DisplayAllInterestsTabular /></ProtectedRoute>} />
                 <Route path="/interests/new"    element={<ProtectedRoute><CreateInterest /></ProtectedRoute>} />

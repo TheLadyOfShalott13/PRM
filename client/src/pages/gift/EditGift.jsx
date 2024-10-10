@@ -1,12 +1,13 @@
 import React, { useContext, useState } from "react";
-import Navbar from '../components/Navbar'
+import Navbar from '../../components/Navbar'
 import axios from "axios";
-import { AuthContext } from "../authContext";
-import "../styles/forms.css"
+import { AuthContext } from "../../authContext";
+import "../../styles/forms.css"
 import { useNavigate } from "react-router-dom";
 
-const CreateGift = () => {
+const EditGift = ( {params} ) => {
 
+console.log(params);
     const [info, setInfo] = useState({});
     const { user } = useContext(AuthContext);
     const navigate = useNavigate();
@@ -43,7 +44,7 @@ const CreateGift = () => {
             <Navbar />
             <div className="cpContainer">
                 <div className="formContainer">
-                    <h1>Add A New Gift</h1>
+                    <h1>Edit A Gift</h1>
                     <div className="inputContainer">
                         <div className="input">
                             <label htmlFor="name">Name</label>
@@ -88,4 +89,4 @@ const CreateGift = () => {
     )
 }
 
-export default CreateGift
+export default EditGift
