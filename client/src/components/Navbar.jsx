@@ -32,11 +32,14 @@ const Navbar = () => {
             </label>
             <nav className='navbar'>
                 <ul>
-                    <Link to="/create">
-                        <li><p>Add Customers</p></li>
+                    <Link to="/gifts">
+                        <li><p>Gifts</p></li>
                     </Link>
-                    <Link to="/">
-                        <li><p>All Customers</p></li>
+                    <Link to="/interests">
+                        <li><p>Interests</p></li>
+                    </Link>
+                    <Link to="/persons">
+                        <li><p>Persons</p></li>
                     </Link>
                     {user ? (<>
 

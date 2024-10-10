@@ -3,7 +3,7 @@ import "../styles/tables.css"
 import axios from 'axios';
 import { faTrash, faEdit, faEye } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
 
 const Options = ({ id }) => {
 
