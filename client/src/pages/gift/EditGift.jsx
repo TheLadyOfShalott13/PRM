@@ -1,16 +1,37 @@
-import React, { useContext, useState } from "react";
+import React, { useState, useEffect } from "react";
 import Navbar from '../../components/Navbar'
 import axios from "axios";
-import { AuthContext } from "../../authContext";
 import "../../styles/forms.css"
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 
 const EditGift = ( {params} ) => {
 
-console.log(params);
+    const {id} = useParams();
     const [info, setInfo] = useState({});
-    const { user } = useContext(AuthContext);
     const navigate = useNavigate();
+    const [responseRecieved, setResponseStatus] = useState(false);
+	const [data, setData] = useState([]);
+
+    useEffect(() => {
+		const loadData = async () => {
+			// Till the data is fetch using API
+			// the Loading page will show.
+			setResponseStatus(false);
+
+			// Await make wait until that
+			// promise settles and return its result
+			axios.get(`http://localhost:3000/gift/get/${id}`).then((response) => {
+		      	setData(response.data);
+		    	setResponseStatus(true);
+		    }).catch((err) => {
+				setResponseStatus(true);		//error state
+		 	});
+			console.log('Completed');
+		};
+
+		// Call the function
+		loadData();
+	}, []);
 
     const handleChange = (e) => {
         setInfo(
@@ -24,13 +45,12 @@ console.log(params);
         e.preventDefault();
 
         const newpost = {
-            ...info,
-            user: user._id,
+            ...info
         }
 
         try {
-            await axios.post(
-                "http://localhost:7700/api/gift/create",
+            await axios.put(
+                `http://localhost:7700/api/gift/update/${id}`,
                 newpost)
             navigate('/gifts')
         } catch (err) {
@@ -39,54 +59,84 @@ console.log(params);
 
     };
 
-    return (
-        <div className="newFormContainer">
-            <Navbar />
-            <div className="cpContainer">
-                <div className="formContainer">
-                    <h1>Edit A Gift</h1>
-                    <div className="inputContainer">
-                        <div className="input">
-                            <label htmlFor="name">Name</label>
-                            <input
-                                onChange={handleChange}
-                                type="text"
-                                id="name"
-                                placeholder="Enter Name"
-                            />
-                        </div>
 
-                        <div className="input">
-                            <label htmlFor="website">Website</label>
-                            <input
-                                onChange={handleChange}
-                                type="text"
-                                id="website"
-                                placeholder="Enter website"
-                            />
-                        </div>
+    if (responseRecieved) {
+        if (data.length>0) {
+            return (
+                <div className="newFormContainer">
+                    <Navbar />
+                    <div className="cpContainer">
+                        <div className="formContainer">
+                            <h1>Edit A Gift: {data[0]._id}</h1>
+                            <div className="inputContainer">
+                                <div className="input">
+                                    <label htmlFor="name">Name</label>
+                                    <input
+                                        onChange={handleChange}
+                                        value={info.name? info.name : data[0].name}
+                                        type="text"
+                                        id="name"
+                                        placeholder="Enter Name"
+                                    />
+                                </div>
 
-                        <div className="input">
-                            <label htmlFor="location">Threshold</label>
-                            <input
-                                onChange={handleChange}
-                                type="number"
-                                min="0"
-                                step="0.01"
-                                id="threshold"
-                                placeholder="Enter threshold"
-                            />
-                        </div>
+                                <div className="input">
+                                    <label htmlFor="website">Website</label>
+                                    <input
+                                        onChange={handleChange}
+                                        value={info.website? info.website : data[0].website}
+                                        type="text"
+                                        id="website"
+                                        placeholder="Enter website"
+                                    />
+                                </div>
 
-                        <button className="button"
-                            onClick={handleClick} type="submit">
-                            Save New Entry
-                        </button>
+                                <div className="input">
+                                    <label htmlFor="location">Threshold</label>
+                                    <input
+                                        onChange={handleChange}
+                                        value={info.threshold? info.threshold : data[0].threshold}
+                                        type="number"
+                                        min="0"
+                                        step="0.01"
+                                        id="threshold"
+                                        placeholder="Enter threshold"
+                                    />
+                                </div>
+
+                                <button className="button"
+                                    onClick={handleClick} type="submit">
+                                    Save New Changes
+                                </button>
+                            </div>
+                        </div>
                     </div>
                 </div>
-            </div>
-        </div>
-    )
+            )
+        }
+        else {
+            return (<div className="newFormContainer">
+                    <Navbar />
+                    <div className="cpContainer">
+                        <div className="formContainer">
+                            <h1>Edit A Gift</h1>
+                            <h1 className="feedback-header">Cannot Find Item</h1>
+                        </div>
+                    </div>
+            </div>)
+        }
+    }
+    else {
+        return (<div className="newFormContainer">
+                    <Navbar />
+                    <div className="cpContainer">
+                        <div className="formContainer">
+                            <h1>Edit A Gift</h1>
+                            <h1 className="feedback-header">Loading Form</h1>
+                        </div>
+                    </div>
+            </div>)
+    }
 }
 
 export default EditGift

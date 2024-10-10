@@ -35,7 +35,7 @@ function App() {
 
                 <Route path="/Gifts"            element={<ProtectedRoute><DisplayAllGiftsTabular /></ProtectedRoute>} />
                 <Route path="/CreateGift"        element={<ProtectedRoute><CreateGift /></ProtectedRoute>} />
-                <Route path="/EditGift"       element={<ProtectedRoute><EditGift /></ProtectedRoute>} />
+                <Route path="/EditGift/:id"       element={<ProtectedRoute><EditGift /></ProtectedRoute>} />
                 <Route path="/ViewGift/:id"       element={<ProtectedRoute><ViewGift /></ProtectedRoute>} />
 
                 { /*

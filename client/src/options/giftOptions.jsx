@@ -21,10 +21,10 @@ const Options = ({ id }) => {
 
     return (
         <div>
-            <Link to={`/ViewGift/${id}`} state={{ "id":id }} >
+            <Link to={`/ViewGift/${id}`} >
                 <FontAwesomeIcon className="tableOptions" icon={faEye} />
             </Link>
-            <Link to="/EditGift" state={{ "id":id }} >
+            <Link to={`/EditGift/${id}`} >
                 <FontAwesomeIcon className="tableOptions" icon={faEdit} />
             </Link>
             <FontAwesomeIcon className="tableOptions" icon={faTrash} onClick={trashClick} />
