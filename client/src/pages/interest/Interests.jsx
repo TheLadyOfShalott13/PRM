@@ -10,10 +10,11 @@ import {Button} from "react-bootstrap";
 const DisplayAllInterestsTabular = ({ type }) => {
 
     const { user } = useContext(AuthContext)
-    const thead = ['name','website','threshold','options'];
+    const thead = ['name','category','options'];
     const options_name = 'interest';
-    const tbody  = useFetch(`gift/list/${user._id}`)?.data
+    const tbody  = useFetch(`interest/list/${user._id}`)?.data
 
+    console.log(tbody);
     return (
         <div>
             <Navbar />
@@ -21,7 +22,7 @@ const DisplayAllInterestsTabular = ({ type }) => {
                 <div className="title-and-options">
                     <h1>View All Interests</h1>
                     <Button className="add-new">
-                        <Link to="/CreateGift">Add New Interest</Link>
+                        <Link to="/CreateInterest">Add New Interest</Link>
                     </Button>
                 </div>
                 <MainTable tbody={{tbody}} thead={{thead}} options={{options_name}}/>

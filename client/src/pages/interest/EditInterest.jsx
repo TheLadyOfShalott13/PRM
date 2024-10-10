@@ -20,7 +20,7 @@ const EditInterest = ( {params} ) => {
 
 			// Await make wait until that
 			// promise settles and return its result
-			axios.get(`http://localhost:3000/gift/get/${id}`).then((response) => {
+			axios.get(`http://localhost:3000/interest/get/${id}`).then((response) => {
 		      	setData(response.data);
 		    	setResponseStatus(true);
 		    }).catch((err) => {
@@ -50,9 +50,9 @@ const EditInterest = ( {params} ) => {
 
         try {
             await axios.put(
-                `http://localhost:7700/api/gift/update/${id}`,
+                `http://localhost:7700/api/interest/update/${id}`,
                 newpost)
-            navigate('/gifts')
+            navigate('/interests')
         } catch (err) {
             console.log(err);
         }
@@ -67,7 +67,7 @@ const EditInterest = ( {params} ) => {
                     <Navbar />
                     <div className="cpContainer">
                         <div className="formContainer">
-                            <h1>Edit A Gift: {data[0]._id}</h1>
+                            <h1>Edit An Interest: {data[0]._id}</h1>
                             <div className="inputContainer">
                                 <div className="input">
                                     <label htmlFor="name">Name</label>
@@ -81,26 +81,13 @@ const EditInterest = ( {params} ) => {
                                 </div>
 
                                 <div className="input">
-                                    <label htmlFor="website">Website</label>
+                                    <label htmlFor="category">Category</label>
                                     <input
                                         onChange={handleChange}
-                                        value={info.website? info.website : data[0].website}
+                                        value={info.category? info.category : data[0].category}
                                         type="text"
-                                        id="website"
-                                        placeholder="Enter website"
-                                    />
-                                </div>
-
-                                <div className="input">
-                                    <label htmlFor="location">Threshold</label>
-                                    <input
-                                        onChange={handleChange}
-                                        value={info.threshold? info.threshold : data[0].threshold}
-                                        type="number"
-                                        min="0"
-                                        step="0.01"
-                                        id="threshold"
-                                        placeholder="Enter threshold"
+                                        id="category"
+                                        placeholder="Enter category"
                                     />
                                 </div>
 
@@ -119,7 +106,7 @@ const EditInterest = ( {params} ) => {
                     <Navbar />
                     <div className="cpContainer">
                         <div className="formContainer">
-                            <h1>Edit A Gift</h1>
+                            <h1>Edit An Interest</h1>
                             <h1 className="feedback-header">Cannot Find Item</h1>
                         </div>
                     </div>
@@ -131,7 +118,7 @@ const EditInterest = ( {params} ) => {
                     <Navbar />
                     <div className="cpContainer">
                         <div className="formContainer">
-                            <h1>Edit A Gift</h1>
+                            <h1>Edit An Interest</h1>
                             <h1 className="feedback-header">Loading Form</h1>
                         </div>
                     </div>

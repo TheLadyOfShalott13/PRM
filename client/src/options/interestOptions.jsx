@@ -10,7 +10,7 @@ const Options = ({ id }) => {
     const trashClick = async () => {
         try {
             await axios.delete(
-                `http://localhost:7700/api/gift/delete/${id}`,
+                `http://localhost:7700/api/interest/delete/${id}`,
                 { withCredentials: false })
             window.location.reload();
         }
@@ -21,10 +21,10 @@ const Options = ({ id }) => {
 
     return (
         <div>
-            <Link to={`/ViewGift/${id}`} >
+            <Link to={`/ViewInterest/${id}`} >
                 <FontAwesomeIcon className="tableOptions" icon={faEye} />
             </Link>
-            <Link to={`/EditGift/${id}`} >
+            <Link to={`/EditInterest/${id}`} >
                 <FontAwesomeIcon className="tableOptions" icon={faEdit} />
             </Link>
             <FontAwesomeIcon className="tableOptions" icon={faTrash} onClick={trashClick} />

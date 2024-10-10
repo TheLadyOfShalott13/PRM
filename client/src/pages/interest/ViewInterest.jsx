@@ -8,7 +8,7 @@ import { useParams } from "react-router-dom";
 const ViewInterest = ({params}) => {
 
     const {id} = useParams();
-    const attributes = ['_id','name','website','createdAt','updatedAt','options'];
+    const attributes = ['_id','name','category'];
 	const [responseRecieved, setResponseStatus] = useState(false);
 	const [data, setData] = useState([]);
 
@@ -20,7 +20,7 @@ const ViewInterest = ({params}) => {
 
 			// Await make wait until that
 			// promise settles and return its result
-			axios.get(`http://localhost:3000/gift/get/${id}`).then((response) => {
+			axios.get(`http://localhost:3000/interest/get/${id}`).then((response) => {
 		      	setData(response.data);
 		    	setResponseStatus(true);
 		    }).catch((err) => {
@@ -33,11 +33,12 @@ const ViewInterest = ({params}) => {
 		loadData();
 	}, []);
 
+console.log(data);
     return (
         <div className="table-container">
             <Navbar />
-			<h1>View A Gift</h1>
-			{	responseRecieved ? data.length>0 ? <VerticalTable attributes={attributes} data={data} option="gift" /> : <h1 className="feedback-header">Cannot Find Item</h1> : <h1 className="feedback-header">Loading Table</h1> }
+			<h1>View An Interest</h1>
+			{	responseRecieved ? data.length>0 ? <VerticalTable attributes={attributes} data={data} option="interest" /> : <h1 className="feedback-header">Cannot Find Item</h1> : <h1 className="feedback-header">Loading Table</h1> }
         </div>
     )
 }

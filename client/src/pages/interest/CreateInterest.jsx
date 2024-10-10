@@ -29,9 +29,9 @@ const CreateInterest = () => {
 
         try {
             await axios.post(
-                "http://localhost:7700/api/gift/create",
+                "http://localhost:7700/api/interest/create",
                 newpost)
-            navigate('/gifts')
+            navigate('/interests')
         } catch (err) {
             console.log(err);
         }
@@ -43,7 +43,7 @@ const CreateInterest = () => {
             <Navbar />
             <div className="cpContainer">
                 <div className="formContainer">
-                    <h1>Add A New Gift</h1>
+                    <h1>Add A New Interest</h1>
                     <div className="inputContainer">
                         <div className="input">
                             <label htmlFor="name">Name</label>
@@ -56,27 +56,16 @@ const CreateInterest = () => {
                         </div>
 
                         <div className="input">
-                            <label htmlFor="website">Website</label>
+                            <label htmlFor="category">Category</label>
                             <input
                                 onChange={handleChange}
                                 type="text"
-                                id="website"
-                                placeholder="Enter website"
+                                id="category"
+                                placeholder="Enter category"
                             />
                         </div>
 
-                        <div className="input">
-                            <label htmlFor="location">Threshold</label>
-                            <input
-                                onChange={handleChange}
-                                type="number"
-                                min="0"
-                                step="0.01"
-                                id="threshold"
-                                placeholder="Enter threshold"
-                            />
-                        </div>
-
+                       
                         <button className="button"
                             onClick={handleClick} type="submit">
                             Save New Entry
