@@ -11,6 +11,7 @@ const ViewInterest = ({params}) => {
     const attributes = ['_id','name','category'];
 	const [responseRecieved, setResponseStatus] = useState(false);
 	const [data, setData] = useState([]);
+	const option_name = 'interest';
 
 	useEffect(() => {
 		const loadData = async () => {
@@ -38,7 +39,7 @@ console.log(data);
         <div className="table-container">
             <Navbar />
 			<h1>View An Interest</h1>
-			{	responseRecieved ? data.length>0 ? <VerticalTable attributes={attributes} data={data} option="interest" /> : <h1 className="feedback-header">Cannot Find Item</h1> : <h1 className="feedback-header">Loading Table</h1> }
+			{	responseRecieved ? data.length>0 ? <VerticalTable attributes={attributes} data={data} option={option_name} /> : <h1 className="feedback-header">Cannot Find Item</h1> : <h1 className="feedback-header">Loading Table</h1> }
         </div>
     )
 }

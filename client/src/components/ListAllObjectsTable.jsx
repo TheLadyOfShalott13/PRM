@@ -36,7 +36,7 @@ const MainTable = ({ tbody, thead, options }) => {
         )
     }
     else {
-        return (<h1 className="feedback-header">No Interests Added Yet</h1>)
+        return (<h1 className="feedback-header">No {optName}s Added Yet</h1>)
     }
 }
 

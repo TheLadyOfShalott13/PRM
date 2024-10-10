@@ -11,6 +11,7 @@ const ViewGift = ({params}) => {
     const attributes = ['_id','name','website','createdAt','updatedAt','options'];
 	const [responseRecieved, setResponseStatus] = useState(false);
 	const [data, setData] = useState([]);
+	const option_name = 'gift';
 
 	useEffect(() => {
 		const loadData = async () => {
@@ -37,7 +38,7 @@ const ViewGift = ({params}) => {
         <div className="table-container">
             <Navbar />
 			<h1>View A Gift</h1>
-			{	responseRecieved ? data.length>0 ? <VerticalTable attributes={attributes} data={data} option="gift" /> : <h1 className="feedback-header">Cannot Find Item</h1> : <h1 className="feedback-header">Loading Table</h1> }
+			{	responseRecieved ? data.length>0 ? <VerticalTable attributes={attributes} data={data} option={option_name} /> : <h1 className="feedback-header">Cannot Find Item</h1> : <h1 className="feedback-header">Loading Table</h1> }
         </div>
     )
 }

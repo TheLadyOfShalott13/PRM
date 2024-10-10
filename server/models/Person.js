@@ -12,6 +12,10 @@ const PersonSchema = new mongoose.Schema({
 	liked_gifts:  	{ type: Array,      required: false },
 	neutral_gifts:  { type: Array,      required: false },
 	hated_gifts:  	{ type: Array,      required: false },
+    user: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'User'
+    },
 }, {
     timestamps: true
 })
