@@ -4,7 +4,6 @@ import helmet from "helmet";
 import morgan from "morgan";
 import mongoose from "mongoose";
 import userRoute from "./routes/user.js";
-import customerRoute from "./routes/customer.js";
 import giftRoute from "./routes/gift.js";
 import interestRoute from "./routes/interest.js";
 import personRoute from "./routes/person.js";
@@ -47,7 +46,6 @@ app.use(cors({
 app.use(morgan("common"));
 
 app.use("/api/users", userRoute);
-app.use("/api/customers", customerRoute);
 app.use("/api/gift", giftRoute);
 app.use("/api/interest", interestRoute);
 app.use("/api/person", personRoute);

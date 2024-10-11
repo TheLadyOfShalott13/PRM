@@ -52,7 +52,7 @@ const EditPerson = ( {params} ) => {
             await axios.put(
                 `http://localhost:7700/api/interest/update/${id}`,
                 newpost)
-            navigate('/interests')
+            navigate('/persons')
         } catch (err) {
             console.log(err);
         }
@@ -106,7 +106,7 @@ const EditPerson = ( {params} ) => {
                                     <label htmlFor="birthday">Birthday</label>
                                     <input
                                         onChange={handleChange}
-                                        value={info.birthday? info.birthday : new Date(data[0].birthday).toLocaleDateString('en-GB')}
+                                        value={info.birthday? info.birthday : (new Date(data[0].birthday)).toISOString().split('T')[0]}
                                         type="date"
                                         id="birthday"
                                         placeholder="Enter birthday"
