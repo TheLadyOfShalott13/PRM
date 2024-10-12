@@ -5,6 +5,7 @@ import { AuthContext } from "./authContext";
 
 import Login from "./pages/Login";
 import Register from "./pages/Register";
+import Homepage from "./pages/Home";
 
 //Gift modules
 import DisplayAllGiftsTabular from "./pages/gift/Gifts";
@@ -55,6 +56,7 @@ function App() {
                 <Route path="/EditPerson/:id"       element={<ProtectedRoute><EditPerson /></ProtectedRoute>} />
                 <Route path="/ViewPerson/:id"       element={<ProtectedRoute><ViewPerson /></ProtectedRoute>} />
 
+                <Route path="/"                 element={<ProtectedRoute><Homepage /></ProtectedRoute>} />
                 <Route path="/login"            element={<Login />} />
                 <Route path="/register"         element={<Register />} />
 
