@@ -39,6 +39,7 @@ console.log(data);
         <div className="table-container">
             <Navbar />
 			<h1>View An Interest</h1>
+			{	responseRecieved ? data.length>0 ? <img className="viewImage" src={`http://localhost:7700/uploads/${data[0].imgName}`} alt={data[0].imgName} ></img> : <h1 className="feedback-header">Cannot Find Image</h1> : <h1 className="feedback-header">Loading Image</h1> }
 			{	responseRecieved ? data.length>0 ? <VerticalTable attributes={attributes} data={data} option={option_name} /> : <h1 className="feedback-header">Cannot Find Item</h1> : <h1 className="feedback-header">Loading Table</h1> }
         </div>
     )

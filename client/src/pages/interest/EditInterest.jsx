@@ -2,13 +2,13 @@ import React, { useState, useEffect } from "react";
 import Navbar from '../../components/Navbar'
 import axios from "axios";
 import "../../styles/forms.css"
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 
 const EditInterest = ( {params} ) => {
 
     const {id} = useParams();
     const [info, setInfo] = useState({});
-    const navigate = useNavigate();
+    const [file, setFile] = useState(null);
     const [responseRecieved, setResponseStatus] = useState(false);
 	const [data, setData] = useState([]);
 
@@ -41,24 +41,27 @@ const EditInterest = ( {params} ) => {
             ));
     };
 
-    const handleClick = async (e) => {
+    const handleClick = async(e) => {
         e.preventDefault();
-
-        const newpost = {
-            ...info
+        const Fdata = new FormData();
+        Object.keys(info).forEach((key)=> {
+            Fdata.append(key,info[key]);
+            //console.log('DATA VALUE OF '+ key + ': ' + data.get(key))
+        });
+        if (file){
+            Fdata.append("img",file);
+            Fdata.append("imgName",file.name);
         }
-
         try {
-            await axios.put(
-                `http://localhost:7700/api/interest/update/${id}`,
-                newpost)
-            navigate('/interests')
+            await fetch(`http://localhost:7700/api/interest/update/${id}`, {
+                method: "PUT",
+                body: Fdata,
+            });
+            window.location.assign('http://localhost:3000/interests');
         } catch (err) {
             console.log(err);
         }
-
-    };
-
+    }
 
     if (responseRecieved) {
         if (data.length>0) {
@@ -89,6 +92,17 @@ const EditInterest = ( {params} ) => {
                                         id="category"
                                         placeholder="Enter category"
                                     />
+                                </div>
+
+                                <div className="input">
+                                    <label htmlFor="img">Image</label>
+                                    <input
+                                        type="file"
+                                        accept=".png,.jpeg,.jpg"
+                                        onChange={(e) => setFile(e.target.files[0])}
+                                        id="img"
+                                    />
+                                    <span className="imageName"><b>Current File:</b> {(data[0].imgName)?data[0].imgName:"No file selected"}</span>
                                 </div>
 
                                 <button className="button"

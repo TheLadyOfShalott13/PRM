@@ -1,15 +1,13 @@
 import React, { useContext, useState } from "react";
 import Navbar from '../../components/Navbar'
-import axios from "axios";
 import { AuthContext } from "../../authContext";
 import "../../styles/forms.css"
-import { useNavigate } from "react-router-dom";
 
 const CreateInterest = () => {
 
     const [info, setInfo] = useState({});
+    const [file, setFile] = useState(null);
     const { user } = useContext(AuthContext);
-    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setInfo(
@@ -19,24 +17,28 @@ const CreateInterest = () => {
             ));
     };
 
-    const handleClick = async (e) => {
+    const handleClick = async(e) => {
         e.preventDefault();
-
-        const newpost = {
-            ...info,
-            user: user._id,
+        if (file) {
+            const data = new FormData();
+            Object.keys(info).forEach((key)=> {
+                data.append(key,info[key]);
+                //console.log('DATA VALUE OF '+ key + ': ' + data.get(key))
+            });
+            data.append("img",file);
+            data.append("imgName",file.name);
+            data.append("user", user._id);
+            try {
+                await fetch("http://localhost:7700/api/interest/create", {
+                    method: "POST",
+                    body: data,
+                });
+                window.location.assign('http://localhost:3000/interests');
+            } catch (err) {
+                console.log(err);
+            }
         }
-
-        try {
-            await axios.post(
-                "http://localhost:7700/api/interest/create",
-                newpost)
-            navigate('/interests')
-        } catch (err) {
-            console.log(err);
-        }
-
-    };
+    }
 
     return (
         <div className="newFormContainer">
@@ -65,6 +67,15 @@ const CreateInterest = () => {
                             />
                         </div>
 
+                        <div className="input">
+                            <label htmlFor="img">Image</label>
+                            <input
+                                type="file"
+                                accept=".png,.jpeg,.jpg"
+                                onChange={(e) => setFile(e.target.files[0])}
+                                id="img"
+                            />
+                        </div>
                        
                         <button className="button"
                             onClick={handleClick} type="submit">

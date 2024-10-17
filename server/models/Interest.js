@@ -1,9 +1,11 @@
 import mongoose from "mongoose";
 
 const InterestSchema = new mongoose.Schema({
-    name:       { type: String,     required: true },
-    category:   { type: String,     required: true },
-    gifts:      { type: Array,      required: true },
+    name:       { type: String },
+    category:   { type: String },
+    gifts:      { type: Array },
+    img:        { data: Buffer,     contentType: String},
+    imgName:    { type: String },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
