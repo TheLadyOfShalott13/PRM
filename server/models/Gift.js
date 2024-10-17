@@ -1,13 +1,15 @@
 import mongoose from "mongoose";
 
 const GiftSchema = new mongoose.Schema({
-    name:       { type: String,     required: true },
-    website:    { type: String,     required: true },
-    threshold:  { type: String,     required: true },
+    name:       { type: String },
+    website:    { type: String },
+    threshold:  { type: String },
+    imgName:    { type: String },
+    img:        { data: Buffer,     contentType: String},
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'
-    },
+    }
 }, {
     timestamps: true
 })

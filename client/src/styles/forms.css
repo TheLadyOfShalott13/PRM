@@ -5,6 +5,10 @@ html {
     overflow-x: hidden;
 }
 
+.imageName {
+    font-size: 12px;
+}
+
 .newFormContainer {
     background-color: lavender;
     height: 100%;

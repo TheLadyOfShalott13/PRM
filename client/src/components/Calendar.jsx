@@ -1,14 +1,14 @@
-import React, {Suspense} from 'react'
+import React from 'react'
 import { Table } from 'react-bootstrap';
 
 const Calendar = ({ month, year }) => {
-    var result = [];
-    var temp = {};
-    var lastDay = new Date(year, month, 0).getDate();
-    var j=0;
-    var weekday= ['Sun','Mon','Tues','Wed','Thurs','Fri','Sat'];
-    for (var i=1; i<=lastDay; i++) {
-        var w = weekday[(new Date(year, month-1, i).getDay())];
+    let result = [];
+    let temp = {};
+    let lastDay = new Date(year, month, 0).getDate();
+    let j=0;
+    let weekday= ['Sun','Mon','Tues','Wed','Thurs','Fri','Sat'];
+    for (let i=1; i<=lastDay; i++) {
+        let w = weekday[(new Date(year, month-1, i).getDay())];
         temp[w] = (new Date(year, month-1, i)).toLocaleDateString("en-CA", {year:"numeric", month: "2-digit", day:"2-digit"});
         if (i===lastDay || w==="Sat") { //end of every week, assign the week to the result, and reset the week's variables
             result[j]=temp;

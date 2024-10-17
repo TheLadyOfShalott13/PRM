@@ -1,15 +1,13 @@
 import React, { useContext, useState } from "react";
 import Navbar from '../../components/Navbar'
-import axios from "axios";
 import { AuthContext } from "../../authContext";
 import "../../styles/forms.css"
-import { useNavigate } from "react-router-dom";
 
 const CreateGift = () => {
 
     const [info, setInfo] = useState({});
+    const [file, setFile] = useState(null);
     const { user } = useContext(AuthContext);
-    const navigate = useNavigate();
 
     const handleChange = (e) => {
         setInfo(
@@ -17,26 +15,31 @@ const CreateGift = () => {
                 ...prev, [e.target.id]: e.target.value
             }
             ));
+        //console.log(data)
     };
 
-    const handleClick = async (e) => {
+    const handleClick = async(e) => {
         e.preventDefault();
-
-        const newpost = {
-            ...info,
-            user: user._id,
+        if (file) {
+            const data = new FormData();
+            Object.keys(info).forEach((key)=> {
+                data.append(key,info[key]);
+                //console.log('DATA VALUE OF '+ key + ': ' + data.get(key))
+            });
+            data.append("img",file);
+            data.append("imgName",file.name);
+            data.append("user", user._id);
+            try {
+                await fetch("http://localhost:7700/api/gift/create", {
+                    method: "POST",
+                    body: data,
+                });
+                window.location.assign('http://localhost:3000/gifts');
+            } catch (err) {
+                console.log(err);
+            }
         }
-
-        try {
-            await axios.post(
-                "http://localhost:7700/api/gift/create",
-                newpost)
-            navigate('/gifts')
-        } catch (err) {
-            console.log(err);
-        }
-
-    };
+    }
 
     return (
         <div className="newFormContainer">
@@ -74,6 +77,16 @@ const CreateGift = () => {
                                 step="0.01"
                                 id="threshold"
                                 placeholder="Enter threshold"
+                            />
+                        </div>
+
+                        <div className="input">
+                            <label htmlFor="img">Image</label>
+                            <input
+                                type="file"
+                                accept=".png,.jpeg,.jpg"
+                                onChange={(e) => setFile(e.target.files[0])}
+                                id="img"
                             />
                         </div>
 

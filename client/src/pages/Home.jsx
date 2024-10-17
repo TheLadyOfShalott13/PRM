@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react'
+import React, {useState} from 'react'
 import Navbar from '../components/Navbar'
 import Calendar from '../components/Calendar'
 import "../styles/tables.css"
@@ -16,29 +16,31 @@ const Homepage = ({ type }) => {
             <div className="table-container">
                 <div className="title-and-options">
                     <h1>Calendar</h1>
-                    <select id="month" onChange={monthChange}>
-                        <option value="01">January</option>
-                        <option value="02">Febuary</option>
-                        <option value="03">March</option>
-                        <option value="04">April</option>
-                        <option value="05">May</option>
-                        <option value="06">June</option>
-                        <option value="07">July</option>
-                        <option value="08">August</option>
-                        <option value="09">September</option>
-                        <option value="10">October</option>
-                        <option value="11">November</option>
-                        <option value="12">December</option>
-                    </select>
-                    <input
-                        onChange={yearChange}
-                        type="number"
-                        id="year"
-                        placeholder="Enter year"
-                    />
+                    <div id="search-date-calendar">
+                        <select id="month" onChange={monthChange}>
+                            <option value={year}>Select month</option>
+                            <option value="01">January</option>
+                            <option value="02">Febuary</option>
+                            <option value="03">March</option>
+                            <option value="04">April</option>
+                            <option value="05">May</option>
+                            <option value="06">June</option>
+                            <option value="07">July</option>
+                            <option value="08">August</option>
+                            <option value="09">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                        <input
+                            onChange={yearChange}
+                            type="number"
+                            id="year"
+                            placeholder="Enter year"
+                        />
+                    </div>
                     <Calendar month={month} year={year} />
                 </div>
-
             </div>
         </div>
     )

@@ -3,14 +3,16 @@ import dotenv from "dotenv";
 import helmet from "helmet";
 import morgan from "morgan";
 import mongoose from "mongoose";
+import cookieParser from "cookie-parser";
+import cors from "cors"
+
 import userRoute from "./routes/user.js";
 import giftRoute from "./routes/gift.js";
 import interestRoute from "./routes/interest.js";
 import personRoute from "./routes/person.js";
-import cookieParser from "cookie-parser";
-import cors from "cors"
 
 const app = express();
+app.use("/uploads", express.static("uploads"));
 dotenv.config();
 
 const PORT = process.env.PORT || 7700;
@@ -35,16 +37,13 @@ app.get('/',
 app.use(cookieParser())
 app.use(express.json());
 app.use(helmet());
-
-
 app.use(cors({
     origin: "http://localhost:3000",
     credentials: true
 }))
-
-
 app.use(morgan("common"));
 
+//include controller routes
 app.use("/api/users", userRoute);
 app.use("/api/gift", giftRoute);
 app.use("/api/interest", interestRoute);

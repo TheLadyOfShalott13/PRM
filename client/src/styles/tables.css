@@ -1,3 +1,10 @@
+.viewImage {
+    max-height: 300px;
+    min-height: 50px;
+    min-width: 50px;
+    max-width: 300px;
+}
+
 .table-container {
     margin: 100px 150px;
     width: 100%;
@@ -63,4 +70,11 @@ table th {
 .feedback-header {
     padding-top: 20px;
     text-transform: capitalize;
+}
+
+#search-date-calendar {
+    display: inline-block;
+    background-color: lightgray;
+    padding: 10px;
+    border-radius: 10px;
 }
