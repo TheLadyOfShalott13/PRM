@@ -24,6 +24,7 @@ import DisplayAllPersonsTabular from "./pages/person/Persons";
 import CreatePerson from "./pages/person/CreatePerson";
 import EditPerson from "./pages/person/EditPerson";
 import ViewPerson from "./pages/person/ViewPerson";
+import EditInterestsGifts from "./pages/interest/EditInterestsGifts";
 
 function App() {
 
@@ -50,6 +51,7 @@ function App() {
                 <Route path="/CreateInterest"        element={<ProtectedRoute><CreateInterest /></ProtectedRoute>} />
                 <Route path="/EditInterest/:id"       element={<ProtectedRoute><EditInterest /></ProtectedRoute>} />
                 <Route path="/ViewInterest/:id"       element={<ProtectedRoute><ViewInterest /></ProtectedRoute>} />
+                <Route path="/EditInterestsGifts/:id"       element={<ProtectedRoute><EditInterestsGifts /></ProtectedRoute>} />
 
                 <Route path="/Persons"            element={<ProtectedRoute><DisplayAllPersonsTabular /></ProtectedRoute>} />
                 <Route path="/CreatePerson"        element={<ProtectedRoute><CreatePerson /></ProtectedRoute>} />
