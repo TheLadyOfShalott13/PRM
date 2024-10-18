@@ -26,12 +26,11 @@ const EditInterest = ( {params} ) => {
 		    }).catch((err) => {
 				setResponseStatus(true);		//error state
 		 	});
-			console.log('Completed');
 		};
 
 		// Call the function
 		loadData();
-	}, []);
+	}, [id]);
 
     const handleChange = (e) => {
         setInfo(

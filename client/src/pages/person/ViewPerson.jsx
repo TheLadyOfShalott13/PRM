@@ -27,14 +27,13 @@ const ViewPerson = ({params}) => {
 		    }).catch((err) => {
 				setResponseStatus(true);		//error state
 		 	});
-			console.log('Completed');
 		};
 
 		// Call the function
-		loadData();
-	}, []);
+		loadData().then();
+	}, [id]);
 
-console.log(data);
+
     return (
         <div className="table-container">
             <Navbar />

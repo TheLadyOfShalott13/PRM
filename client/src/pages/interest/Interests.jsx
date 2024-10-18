@@ -14,7 +14,6 @@ const DisplayAllInterestsTabular = ({ type }) => {
     const options_name = 'interest';
     const tbody  = useFetch(`interest/list/${user._id}`)?.data
 
-    console.log(tbody);
     return (
         <div>
             <Navbar />
