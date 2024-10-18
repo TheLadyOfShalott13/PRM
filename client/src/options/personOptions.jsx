@@ -1,9 +1,10 @@
 import React from 'react'
 import "../styles/tables.css"
 import axios from 'axios';
-import { faTrash, faEdit, faEye } from '@fortawesome/free-solid-svg-icons'
+import { faTrash, faEdit, faEye, faHeart, faThumbsUp, faThumbsDown,faCircleCheck, faLightbulb } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { Tooltip } from 'react-tooltip'
 
 const Options = ({ id }) => {
 
@@ -21,13 +22,60 @@ const Options = ({ id }) => {
 
     return (
         <div>
+
             <Link to={`/ViewPerson/${id}`} >
-                <FontAwesomeIcon className="tableOptions" icon={faEye} />
+                <span data-tooltip-id="view-person-helper" data-tooltip-content="View Person">
+                    <FontAwesomeIcon className="tableOptions" icon={faEye} />
+                </span>
+                <Tooltip id="view-person-helper"></Tooltip>
             </Link>
+
             <Link to={`/EditPerson/${id}`} >
-                <FontAwesomeIcon className="tableOptions" icon={faEdit} />
+                <span data-tooltip-id="edit-person-helper" data-tooltip-content="Edit Person">
+                    <FontAwesomeIcon className="tableOptions" icon={faEdit} />
+                </span>
+                <Tooltip id="edit-person-helper"></Tooltip>
             </Link>
-            <FontAwesomeIcon className="tableOptions" icon={faTrash} onClick={trashClick} />
+
+            <Link to={`/EditPersonalInterests/${id}`} >
+                <span data-tooltip-id="edit-interests-helper" data-tooltip-content="Edit Interests">
+                    <FontAwesomeIcon className="tableOptions" icon={faLightbulb} />
+                </span>
+                <Tooltip id="edit-interests-helper"></Tooltip>
+            </Link>
+
+            <Link to={`/EditLovedGifts/${id}`} >
+                <span data-tooltip-id="loved-gifts-helper" data-tooltip-content="Loved Gifts">
+                    <FontAwesomeIcon className="tableOptions" icon={faHeart} />
+                </span>
+                <Tooltip id="loved-gifts-helper"></Tooltip>
+            </Link>
+
+            <Link to={`/EditLikedGifts/${id}`} >
+                <span data-tooltip-id="liked-gifts-helper" data-tooltip-content="Liked Gifts">
+                    <FontAwesomeIcon className="tableOptions" icon={faThumbsUp} />
+                </span>
+                <Tooltip id="liked-gifts-helper"></Tooltip>
+            </Link>
+
+            <Link to={`/EditNeutralGifts/${id}`} >
+                <span data-tooltip-id="neutral-gifts-helper" data-tooltip-content="Neutral Gifts">
+                    <FontAwesomeIcon className="tableOptions" icon={faCircleCheck} />
+                </span>
+                <Tooltip id="neutral-gifts-helper"></Tooltip>
+            </Link>
+
+            <Link to={`/EditHatedGifts/${id}`} >
+                <span data-tooltip-id="hated-gifts-helper" data-tooltip-content="Hated Gifts">
+                    <FontAwesomeIcon className="tableOptions" icon={faThumbsDown} />
+                </span>
+                <Tooltip id="hated-gifts-helper"></Tooltip>
+            </Link>
+
+            <span data-tooltip-id="delete-person-helper" data-tooltip-content="Delete Person">
+                <FontAwesomeIcon className="tableOptions" icon={faTrash} onClick={trashClick}/>
+            </span>
+            <Tooltip id="delete-person-helper"></Tooltip>
         </div>
     )
 }

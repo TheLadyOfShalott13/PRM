@@ -4,6 +4,7 @@ import axios from 'axios';
 import { faTrash, faEdit, faEye } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
+import { Tooltip } from 'react-tooltip'
 
 const Options = ({ id }) => {
 
@@ -22,12 +23,23 @@ const Options = ({ id }) => {
     return (
         <div>
             <Link to={`/ViewGift/${id}`} >
-                <FontAwesomeIcon className="tableOptions" icon={faEye} />
+                <span data-tooltip-id="view-gift-helper" data-tooltip-content="View Gift">
+                    <FontAwesomeIcon className="tableOptions" icon={faEye} />
+                </span>
+                <Tooltip id="view-gift-helper"></Tooltip>
             </Link>
+
             <Link to={`/EditGift/${id}`} >
-                <FontAwesomeIcon className="tableOptions" icon={faEdit} />
+                <span data-tooltip-id="edit-gift-helper" data-tooltip-content="Edit Gift">
+                    <FontAwesomeIcon className="tableOptions" icon={faEdit} />
+                </span>
+                <Tooltip id="edit-gift-helper"></Tooltip>
             </Link>
-            <FontAwesomeIcon className="tableOptions" icon={faTrash} onClick={trashClick} />
+
+            <span data-tooltip-id="delete-gift-helper" data-tooltip-content="Delete Gift">
+                <FontAwesomeIcon className="tableOptions" icon={faTrash} onClick={trashClick} />
+            </span>
+            <Tooltip id="delete-gift-helper"></Tooltip>
         </div>
     )
 }
