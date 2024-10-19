@@ -21,12 +21,11 @@ export const deleteGift = async (req, res, next) => {
     }
 };
 
-//check how to find the related interests when the search parameter is a list within the document
-export const getRelatedInterests = async (req, res, next) => {
-    const giftId = req.params.giftId;
+export const getMultipleByIds = async (req, res, next) => {
+    const giftIds = req.body.ids;
 
     try {
-        const interests = await Interest.find({ gift: giftId }); //gift is an array/list
+        const interests = await Gift.find({ "_id": {"$in": giftIds } }); //gift is an array/list
         res.status(200).json(interests);
     } catch (err) {
         next(err)

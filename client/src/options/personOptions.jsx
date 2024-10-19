@@ -1,7 +1,17 @@
 import React from 'react'
 import "../styles/tables.css"
 import axios from 'axios';
-import { faTrash, faEdit, faEye, faHeart, faThumbsUp, faThumbsDown,faCircleCheck, faLightbulb } from '@fortawesome/free-solid-svg-icons'
+import {
+    faTrash,
+    faEdit,
+    faEye,
+    faHeart,
+    faThumbsUp,
+    faThumbsDown,
+    faCircleCheck,
+    faLightbulb,
+    faGift
+} from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Link } from "react-router-dom";
 import { Tooltip } from 'react-tooltip'
@@ -37,14 +47,30 @@ const Options = ({ id }) => {
                 <Tooltip id="edit-person-helper"></Tooltip>
             </Link>
 
-            <Link to={`/EditPersonalInterests/${id}`} >
+            <Link to={`/EditPersonsInterests/${id}`} >
                 <span data-tooltip-id="edit-interests-helper" data-tooltip-content="Edit Interests">
                     <FontAwesomeIcon className="tableOptions" icon={faLightbulb} />
                 </span>
                 <Tooltip id="edit-interests-helper"></Tooltip>
             </Link>
 
-            <Link to={`/EditLovedGifts/${id}`} >
+            <Link to={`/EditGifts/${id}`} >
+                <span data-tooltip-id="select-gifts-helper" data-tooltip-content="Select Gifts">
+                    <FontAwesomeIcon className="tableOptions" icon={faGift} />
+                </span>
+                <Tooltip id="select-gifts-helper"></Tooltip>
+            </Link>
+
+            <span data-tooltip-id="delete-person-helper" data-tooltip-content="Delete Person">
+                <FontAwesomeIcon className="tableOptions" icon={faTrash} onClick={trashClick}/>
+            </span>
+            <Tooltip id="delete-person-helper"></Tooltip>
+        </div>
+    )
+}
+
+/*
+<Link to={`/EditLovedGifts/${id}`} >
                 <span data-tooltip-id="loved-gifts-helper" data-tooltip-content="Loved Gifts">
                     <FontAwesomeIcon className="tableOptions" icon={faHeart} />
                 </span>
@@ -71,13 +97,6 @@ const Options = ({ id }) => {
                 </span>
                 <Tooltip id="hated-gifts-helper"></Tooltip>
             </Link>
-
-            <span data-tooltip-id="delete-person-helper" data-tooltip-content="Delete Person">
-                <FontAwesomeIcon className="tableOptions" icon={faTrash} onClick={trashClick}/>
-            </span>
-            <Tooltip id="delete-person-helper"></Tooltip>
-        </div>
-    )
-}
+ */
 
 export default Options;

@@ -6,7 +6,8 @@ import {
     updateGift,
     deleteGift,
     getOneGift,
-    getAllGifts
+    getAllGifts,
+    getMultipleByIds
 } from "../controllers/gift.js";
 
 const router = express.Router();
@@ -28,5 +29,6 @@ router.put("/update/:id", upload.single('img'), updateGift);
 router.delete("/delete/:id", deleteGift);
 router.get("/get/:id/", getOneGift);
 router.get("/list/:userId", getAllGifts);
+router.post("/getMultipleByIds", getMultipleByIds);
 
 export default router;

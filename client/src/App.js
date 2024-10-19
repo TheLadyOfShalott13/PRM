@@ -18,14 +18,17 @@ import DisplayAllInterestsTabular from "./pages/interest/Interests";
 import CreateInterest from "./pages/interest/CreateInterest";
 import EditInterest from "./pages/interest/EditInterest";
 import ViewInterest from "./pages/interest/ViewInterest";
+import EditInterestsGifts from "./pages/interest/EditInterestsGifts";
 
 //Person modules
 import DisplayAllPersonsTabular from "./pages/person/Persons";
 import CreatePerson from "./pages/person/CreatePerson";
 import EditPerson from "./pages/person/EditPerson";
 import ViewPerson from "./pages/person/ViewPerson";
-import EditInterestsGifts from "./pages/interest/EditInterestsGifts";
+import EditPersonsInterests from "./pages/person/EditPersonsInterests";
+import EditGifts from "./pages/person/EditGifts";
 
+//EditPersonsInterests
 function App() {
 
   const { user } = useContext(AuthContext);
@@ -57,6 +60,8 @@ function App() {
                 <Route path="/CreatePerson"        element={<ProtectedRoute><CreatePerson /></ProtectedRoute>} />
                 <Route path="/EditPerson/:id"       element={<ProtectedRoute><EditPerson /></ProtectedRoute>} />
                 <Route path="/ViewPerson/:id"       element={<ProtectedRoute><ViewPerson /></ProtectedRoute>} />
+                <Route path="/EditPersonsInterests/:id"        element={<ProtectedRoute><EditPersonsInterests /></ProtectedRoute>} />
+                <Route path="/EditGifts/:id"       element={<ProtectedRoute><EditGifts /></ProtectedRoute>} />
 
                 <Route path="/"                 element={<ProtectedRoute><Homepage /></ProtectedRoute>} />
                 <Route path="/login"            element={<Login />} />
