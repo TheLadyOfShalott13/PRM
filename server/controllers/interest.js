@@ -59,3 +59,14 @@ export const getAllInterests = async (req, res, next) => {
         next(err)
     }
 }
+
+export const getMultipleByIds = async (req, res, next) => {
+    const interestIds = req.body.ids;
+
+    try {
+        const interests = await Interest.find({ "_id": {"$in": interestIds } }); //interest is an array/list
+        res.status(200).json(interests);
+    } catch (err) {
+        next(err)
+    }
+}

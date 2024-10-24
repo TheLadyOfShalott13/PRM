@@ -6,7 +6,8 @@ import {
     deleteInterest,
     getOneInterest,
     updateInterest,
-    getAllInterests
+    getAllInterests,
+    getMultipleByIds
 } from "../controllers/interest.js";
 
 const router = express.Router();
@@ -28,5 +29,6 @@ router.put("/update/:id", upload.single('img'), updateInterest);
 router.delete("/delete/:id", deleteInterest);
 router.get("/get/:id", getOneInterest);
 router.get("/list/:userId", getAllInterests);
+router.post("/getMultipleByIds", getMultipleByIds);
 
 export default router;
