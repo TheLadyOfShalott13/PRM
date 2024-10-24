@@ -1,7 +1,6 @@
-import React, {Suspense, useContext, useEffect, useState} from 'react'
+import React, {useContext, useEffect, useState} from 'react'
 import {Link, useParams} from "react-router-dom";
 import { AuthContext } from '../../authContext'
-import MainTable from '../../components/ListAllObjectsTable'
 import Navbar from '../../components/Navbar'
 import "../../styles/tables.css"
 import {Button, Table} from "react-bootstrap";
@@ -11,133 +10,109 @@ const EditGifts = ({ type }) => {
 
     const { id} = useParams();
     const { user } = useContext(AuthContext);
-    const [loved, setLoved] = useState([]);
-    const [liked, setLiked] = useState([]);
-    const [neutral, setNeutral] = useState([]);
-    const [hated, setHated] = useState([]);
     const [person, setPerson] = useState([]);
     const [interests, setInterests] = useState([]);
-    const [gifts, setGifts] = useState([]);
-    const giftList = [];
+    const [gifts, setGifts] = useState({});
+    const [giftList, setGiftList] = useState({});
     //const [giftList, setGiftList] = useState([]);
-    const [pageLoad, setPageLoad] = useState(true);
-    const thead = ['select','name','website','threshold'];
+    const [pageLoad, setPageLoad] = useState(0);
+    const [giftRefresh, setgiftRefresh] = useState(false);
+    const thead = ['checkbox','interest','name','website','threshold'];
+    const LOVED = "LOVED",
+        LIKED = "LIKED",
+        NEUTRAL = "NEUTRAL",
+        DISLIKED = "DISLIKED";
+    let row=0,cell=0;
 
     useEffect(()=> {
         async function getPerson(){
             axios.get(`http://localhost:7700/api/person/get/${id}`).then((response) => {
                 setPerson(response.data);
-                getInterests();
+                if (response.data.length > 0) {
+                    response.data.map( function(p) {
+                        getInterests(p.interests);
+                        setGiftList(p.gifts[0]);
+                    });
+                }
+                //console.log('P: Display person:')
+                //console.log(response.data);
+                //getInterests();
             }).catch((err) => { //error state
                 console.log("ERROR FROM PERSON GET API: ")
         	    console.log(err);
         	});
         }
 
-        async function getInterests(){
-            console.log("DISPLAY PERSON: ");
-            console.log(person);
+        async function getInterests(ids){
+            //console.log("I: DISPLAY IDS: ");
+            //console.log(ids);
             axios.post(`http://localhost:7700/api/interest/getMultipleByIds`, {
-                        "ids": []
-                }, {
-                    "headers": {
-                        'Content-Type': 'application/json'
-                    }
-                }).then((response) => {
-                    setInterests(response.data);
-                    //getGifts();
+                "ids": ids
+            }, {
+                "headers": {
+                     'Content-Type': 'application/json'
+                }
+            }).then((response) => {
+                /*console.log("I: DISPLAY INTEREST RESPONSE: ");
+                console.log(response.data);*/
+                setInterests(response.data);
+                if (response.data.length > 0) {
+                    response.data.map( (int,key)=> getGifts(int.gifts, int._id, key) );
+                }
+                //getGifts();
             }).catch((err) => { //error state
                 console.log("ERROR FROM INTEREST LIST API: ")
-        	    console.log(err);
-        	});
+                console.log(err);
+            });
         }
 
-        async function getGifts(){
-            const interestIds = []; //TODO: Fill in the array here
+        async function getGifts(giftIds,interestId, key){
             axios.post(`http://localhost:7700/api/gift/getMultipleByIds`, {
-                    "ids": interestIds
+                    "ids": giftIds
                 }, {
                     "headers": {
                         'Content-Type': 'application/json'
                     }
                 }).then((response) => {
-                setGifts(response.data);
-                setPageLoad(false);
+                    const temp = gifts;
+                    temp[interestId] = response.data;
+                    setGifts(temp);
+                    setPageLoad(key+1);
             }).catch((err) => { //error state
                 console.log("ERROR FROM GIFT LIST API: ")
         	    console.log(err);
         	});
         }
 
-        //console.log("+++++++++Interests: ");
-        //console.log(selected);
-
-        //console.log("Refresh: ");
-        //console.log(refresh);
-
-        if (person.length===0 && pageLoad ) { //refreshed anew
-            getPerson().then( () => console.log('DONE!!!!!!!!!!!!!'));
+        if (person.length===0 && pageLoad===0 ) { //refreshed anew
+            getPerson().then( () => console.log('DONE'));
         }
-    },[id, pageLoad, person, user]);
 
-    const selectLoved = async (e) => {
-        //e.preventDefault();
-        if (loved.includes(e.target.value)){
-            setLoved(loved.filter(id => id !== e.target.value)); //remove the ID from list
+        if (giftRefresh) {
+
+            fetch(`http://localhost:7700/api/person/update/${id}`, {
+                method: "PUT",
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({"gifts":giftList}),
+            }).then(() => setgiftRefresh(false));
+            //console.log("Synced with mongoDB")
         }
-        else {
-            setLoved([ e.target.value,...loved], () => {
-                e.target.checked = true;
-            }); //add the ID to the list
-        }
+    },[id, interests, pageLoad, person, user, gifts, giftList, giftRefresh]);
+
+
+    const selectGiftType = async (e) => {
+        giftList[e.target.name] = e.target.value;
+        setgiftRefresh(true);
+        e.target.checked = true
     };
 
-    const selectLiked = async (e) => {
-        //e.preventDefault();
-        if (liked.includes(e.target.value)){
-            setLiked(liked.filter(id => id !== e.target.value)); //remove the ID from list
-        }
-        else {
-            setLiked([ e.target.value,...liked], () => {
-                e.target.checked = true;
-            }); //add the ID to the list
-        }
-    };
+    const getRadioCheckStatus = function(objectId, type) {
+        return (giftList.hasOwnProperty(objectId) && giftList[objectId]===type)
+    }
 
-    const selectNeutral = async (e) => {
-        //e.preventDefault();
-        if (neutral.includes(e.target.value)){
-            setNeutral(neutral.filter(id => id !== e.target.value)); //remove the ID from list
-        }
-        else {
-            setNeutral([ e.target.value,...neutral], () => {
-                e.target.checked = true;
-            }); //add the ID to the list
-        }
-    };
-
-    const selectHated = async (e) => {
-        //e.preventDefault();
-        if (hated.includes(e.target.value)){
-            setHated(hated.filter(id => id !== e.target.value)); //remove the ID from list
-        }
-        else {
-            setHated([ e.target.value,...hated], () => {
-                e.target.checked = true;
-            }); //add the ID to the list
-        }
-    };
-
-    const setGiftList = (id, type) => giftList[id] = type;
-
-    console.log("DISPLAY PAGE LOAD: ");
-    console.log(pageLoad);
-
-console.log("DISPLAY INTEREST: ");
-console.log(interests);
-//{person[0]['name']}
-
-    if (pageLoad) {
+    if (pageLoad === interests.length) {
         return (
             <div>
                 <Navbar />
@@ -158,41 +133,59 @@ console.log(interests);
                             </tr>
                         </thead>
                         <tbody>
-                            {gifts.map( function(ele,j) {
-                                return (<tr key={j}>{
-                                    thead.map( function(index, k) {
-                                        if (index==='checkbox') {
-                                            ele[index] = <div>
-                                                            <input
-                                                                type="radio"
-                                                                value={ele['_id']}
-                                                                checked=""
-                                                                onChange={setGiftList(ele['_id'],'')}
-                                                            />
-                                                            <input
-                                                                type="radio"
-                                                                value={ele['_id']}
-                                                                checked=""
-                                                                onChange={setGiftList(ele['_id'],'')}
-                                                            />
-                                                            <input
-                                                                type="radio"
-                                                                value={ele['_id']}
-                                                                checked=""
-                                                                onChange={setGiftList(ele['_id'],'')}
-                                                            />
-                                                            <input
-                                                                type="radio"
-                                                                value={ele['_id']}
-                                                                checked=""
-                                                                onChange={setGiftList(ele['_id'],'')}
-                                                            />
-                                                         </div>
-                                        }
-                                        return(<td key={k}>{ele[index]}</td>)
-                                    } )
-                                }</tr>)
-                            } )}
+                            {
+                                interests.map( function(ele) {
+                                    const displayGifts = gifts[ele._id];
+                                    return(
+                                        displayGifts.map( function (obj) {
+                                                return (<tr key={row++}>{
+                                                    thead.map( function(index) {
+                                                        if (index==='checkbox') {
+                                                            obj[index] = <div>
+                                                                            <input
+                                                                                name={obj['_id']}
+                                                                                type="radio"
+                                                                                value={LOVED}
+                                                                                checked={getRadioCheckStatus(obj['_id'],LOVED)}
+                                                                                onChange={selectGiftType}
+                                                                            />
+                                                                            &nbsp;Loved&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                            <input
+                                                                                name={obj['_id']}
+                                                                                type="radio"
+                                                                                value={LIKED}
+                                                                                checked={getRadioCheckStatus(obj['_id'],LIKED)}
+                                                                                onChange={selectGiftType}
+                                                                            />
+                                                                            &nbsp;Liked&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                            <input
+                                                                                name={obj['_id']}
+                                                                                type="radio"
+                                                                                value={NEUTRAL}
+                                                                                checked={getRadioCheckStatus(obj['_id'],NEUTRAL)}
+                                                                                onChange={selectGiftType}
+                                                                            />
+                                                                            &nbsp;Neutral&nbsp;&nbsp;&nbsp;&nbsp;
+                                                                            <input
+                                                                                name={obj['_id']}
+                                                                                type="radio"
+                                                                                value={DISLIKED}
+                                                                                checked={getRadioCheckStatus(obj['_id'],DISLIKED)}
+                                                                                onChange={selectGiftType}
+                                                                            />
+                                                                            &nbsp;Disliked
+                                                                         </div>
+                                                        }
+                                                        if (index==='interest') {
+                                                            obj[index] = ele.name;
+                                                        }
+                                                        return(<td key={cell++}>{obj[index]}</td>)
+                                                    })
+                                                }</tr>);
+                                            } )
+                                    );
+                                }
+                             )}
                         </tbody>
                     </Table>
                 </div>
