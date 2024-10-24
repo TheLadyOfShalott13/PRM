@@ -10,6 +10,7 @@ import userRoute from "./routes/user.js";
 import giftRoute from "./routes/gift.js";
 import interestRoute from "./routes/interest.js";
 import personRoute from "./routes/person.js";
+import giftRequestRoute from "./routes/giftrequest.js";
 
 const app = express();
 app.use("/uploads", express.static("uploads"));
@@ -48,6 +49,7 @@ app.use("/api/users", userRoute);
 app.use("/api/gift", giftRoute);
 app.use("/api/interest", interestRoute);
 app.use("/api/person", personRoute);
+app.use("/api/giftRequest", giftRequestRoute);
 
 app.listen(PORT, () => {
     console.log("Listening on port 7700");

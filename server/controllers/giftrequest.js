@@ -21,24 +21,24 @@ export const deleteGiftRequest = async (req, res, next) => {
     }
 }
 
-export const getGiftRequest = async (req, res, next) => {
-    const giftId = req.params.id;
+export const getOneGiftRequest = async (req, res, next) => {
+    const reqId = req.params.id;
 
     try {
-        const giftRequest = await GiftRequest.find({ gift: giftId });
+        const giftRequest = await GiftRequest.find({ _id: reqId });
         res.status(200).json(giftRequest);
     } catch (err) {
         next(err)
     }
 }
 
-//get all active gift requests by gift ID
-export const getActiveGiftRequests = async (req, res, next) => {
-    const giftId = req.params.id;
+//get all gift requests by status
+export const getAllGiftRequests = async (req, res, next) => {
+    const status = req.params.status;
 
     try {
-        const giftRequest = await GiftRequest.find({ gift: giftId, status: "purchased" }); //multiple parameters for selection, and check for when second parameter is a list
-        res.status(200).json(interests);
+        const giftRequest = await GiftRequest.find({ "status": status }); //multiple parameters for selection, and check for when second parameter is a list
+        res.status(200).json(giftRequest);
     } catch (err) {
         next(err)
     }

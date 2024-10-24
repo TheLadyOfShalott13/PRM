@@ -7,6 +7,12 @@ import Login from "./pages/Login";
 import Register from "./pages/Register";
 import Homepage from "./pages/Home";
 
+//GiftRequest modules
+import DisplayAllGiftRequestsTabular from "./pages/request/GiftRequests";
+import CreateGiftRequest from "./pages/request/CreateGiftRequest";
+import ViewGiftRequest from "./pages/request/ViewGiftRequest";
+import TrackGiftRequest from "./pages/request/TrackGiftRequest";
+
 //Gift modules
 import DisplayAllGiftsTabular from "./pages/gift/Gifts";
 import CreateGift from "./pages/gift/CreateGift";
@@ -44,6 +50,11 @@ function App() {
   return (
         <BrowserRouter>
             <Routes>
+
+                <Route path="/GiftRequests"            element={<ProtectedRoute><DisplayAllGiftRequestsTabular /></ProtectedRoute>} />
+                <Route path="/CreateGiftRequest"        element={<ProtectedRoute><CreateGiftRequest /></ProtectedRoute>} />
+                <Route path="/TrackGiftRequest/:id"       element={<ProtectedRoute><TrackGiftRequest /></ProtectedRoute>} />
+                <Route path="/ViewGiftRequest/:id"       element={<ProtectedRoute><ViewGiftRequest /></ProtectedRoute>} />
 
                 <Route path="/Gifts"            element={<ProtectedRoute><DisplayAllGiftsTabular /></ProtectedRoute>} />
                 <Route path="/CreateGift"        element={<ProtectedRoute><CreateGift /></ProtectedRoute>} />
