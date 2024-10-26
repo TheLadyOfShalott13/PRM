@@ -44,7 +44,7 @@ const EditGifts = ({ type }) => {
         }
 
         async function getInterests(ids){
-            //console.log("I: DISPLAY IDS: ");
+            //console.log("I: DISPLAY IDS: ");   
             //console.log(ids);
             axios.post(`http://localhost:7700/api/interest/getMultipleByIds`, {
                 "ids": ids
