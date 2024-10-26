@@ -1,4 +1,5 @@
 import Person from "../models/Person.js";
+import {ObjectId} from "mongodb";
 
 export const createPerson = async (req, res, next) => {
     const newPerson = new Person(req.body)
@@ -21,12 +22,21 @@ export const deletePerson = async (req, res, next) => {
     }
 };
 
-export const getPeopleOnSameBirthday = async (req, res, next) => {
-    const birthday = req.params.date;
+export const getBirthdays = async (req, res, next) => {
+    const month = req.body.month;
+    const userId = req.params.userId;
+    let data = {};
 
     try {
-        const people = await Person.find({ birthday: birthday });
-        res.status(200).json(people);
+        const result = await Person.aggregate([
+            {$project: {name: 1, imgName:1, user:1, month: {$month: '$birthday'}, birthday: {$dayOfMonth: '$birthday'}}},
+            {$match: { $and: [{month: month},{user: new ObjectId(userId)}]} }
+        ]);
+        result.map(function(p){
+            if (typeof data[p.birthday] === 'undefined') data[p.birthday] = [];
+            data[p.birthday] = [...data[p.birthday], p];
+        })
+        res.status(200).json(data);
     } catch (err) {
         next(err)
     }

@@ -4,10 +4,10 @@ import bodyParser from "body-parser";
 import {
     createPerson,
     deletePerson,
-	getPeopleOnSameBirthday,
     updatePerson,
     getOnePerson,
-    getAllPersons
+    getAllPersons,
+    getBirthdays
 } from "../controllers/person.js";
 
 const router = express.Router();
@@ -29,6 +29,6 @@ router.put("/update/:id", upload.single('img'), updatePerson);
 router.delete("/delete/:id", deletePerson);
 router.get("/get/:id", getOnePerson);
 router.get("/list/:userId", getAllPersons);
-router.get("/birthday/:date", getPeopleOnSameBirthday);
+router.post("/birthdays/:userId", getBirthdays);
 
 export default router;
