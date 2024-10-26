@@ -13,7 +13,7 @@ const EditGifts = ({ type }) => {
     const [person, setPerson] = useState([]);
     const [interests, setInterests] = useState([]);
     const [gifts, setGifts] = useState({});
-    const [giftList, setGiftList] = useState({});
+    let [giftList, setGiftList] = useState({});
     //const [giftList, setGiftList] = useState([]);
     const [pageLoad, setPageLoad] = useState(0);
     const [giftRefresh, setgiftRefresh] = useState(false);
@@ -103,13 +103,14 @@ const EditGifts = ({ type }) => {
 
 
     const selectGiftType = async (e) => {
+        if (typeof giftList === "undefined") giftList = {};
         giftList[e.target.name] = e.target.value;
         setgiftRefresh(true);
         e.target.checked = true
     };
 
     const getRadioCheckStatus = function(objectId, type) {
-        return (giftList.hasOwnProperty(objectId) && giftList[objectId]===type)
+        return (typeof giftList === "undefined")? false : (giftList.hasOwnProperty(objectId) && giftList[objectId]===type)
     }
 
     if (pageLoad === interests.length) {
