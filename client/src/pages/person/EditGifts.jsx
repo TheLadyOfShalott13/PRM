@@ -92,8 +92,9 @@ const EditGifts = ({ type }) => {
         }
 
         if (giftRefresh) {
-
-            fetch(`http://localhost:7700/api/person/update/${id}`, {
+            const Fdata = new FormData();
+            Fdata.append("gifts", JSON.stringify(giftList));
+            fetch(`${api_url}/api/person/update/${id}`, {
                 method: "PUT",
                 headers: {
                     'Content-Type': 'application/json'

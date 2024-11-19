@@ -8,6 +8,7 @@ import {
 
 const router = express.Router();
 
+//=========For routes accepting raw JSON============//
 router.post("/create", createGiftRequest);
 router.get("/get/:id", getOneGiftRequest);
 router.get("/status/:status", getAllGiftRequests);
