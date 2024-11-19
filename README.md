@@ -33,41 +33,36 @@ _Note: This project uses the Javascript ES6 standard._
 ### Setting up the backend
 In order to run this project, we need to follow the below steps:
 1. Navigate to `/server` folder
-2. Create a `.env` file of the following format:
+2. Create a `.env` file just like the following example:
     ```
    MONGO = <MONGO_DB_URL>
    JWT = <JWT>
-   APP_PORT = <APP_PORT>
-   CORS_PORT = <CORS_PORT>
-   JWT = <JWT>
+   FRONTEND_URL = 'http://localhost:3000'
+   PORT = 7700
    ```
-    - `MONGO_DB_URL` is the MongoDB server IP/URL
+    - `MONGO_DB_URL` is the MongoDB server URL
     - `JWT` is the Javascript Web Token used for authentication and can be any kind of string generated. 
-    - `APP_PORT` refers to the backend port number.
-    - `CORS_PORT` refers to the frontend port number.
-    - Eg, if this is run on `localhost`, if the backend is run from `localhost:7700` and the frontend is run from `localhost:5173` then `APP_PORT` = 7700 and `CORS_PORT` = 5173.
+    - `FRONTEND_URL` refers to the frontend URL which will be included in the exceptions for the CORS policy.
+    - `PORT` refers to the backend port number.
 3. (Only if running it for the first time) Run the command `npm install` to install all the dependencies given in the `package.json` file.
 4. Run the command `nodemon ./index.js`
 
 ### Setting up the frontend
 In order to run this project, we need to follow the below steps:
 1. Navigate to `/client` folder
-2. Create a `.env` file of the following format:
+2. Create a `.env` file just like the following example:
     ```
-   REACT_APP_API_PORT = <BACKEND_PORT>
-   REACT_APP_HTTP_PORT = <FRONTEND_PORT>
-   REACT_APP_DB_HOST = <DB_HOST>
-   VITE_API_PORT = <BACKEND_PORT>
-   VITE_HTTP_PORT = <FRONTEND_PORT>
-   VITE_SERVER = <SERVER_HOST>
+    REACT_APP_FRONTEND_URL = 'http://localhost:3000'
+    REACT_APP_BACKEND_URL = 'http://localhost:7700'
    ```
-    - `REACT_APP_API_PORT` and `VITE_API_PORT` share the same value, which is the backend port number.
-    - `REACT_APP_HTTP_PORT` and `VITE_HTTP_PORT` share the same value, which is the frontend port number.
-    - `VITE_SERVER` is the server address in Domain Name or IP address format. In this case, it would be `localhost`.
+    - `REACT_APP_FRONTEND_URL` should include the value of your frontend base URL 
+    - `REACT_APP_BACKEND_URL` should include the value of your backend base URL 
 3. (Only if running it for the first time) Run the command `npm install` to install all the dependencies given in the `package.json` file.
 4. Run the command `npm start`
 
 ## Product Features
+These are the key functionalities of our application that make it unique and useful:
+
 - Microservice based architecture using RESTful APIs
 - User Authentication using JWT based Authorization
 - Dynamic data rendering and updates upon user interaction

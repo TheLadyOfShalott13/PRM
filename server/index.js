@@ -39,7 +39,7 @@ app.use(cookieParser())
 app.use(express.json());
 app.use(helmet());
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: process.env.FRONTEND_URL,
     credentials: true
 }))
 app.use(morgan("common"));
@@ -52,6 +52,6 @@ app.use("/api/person", personRoute);
 app.use("/api/giftRequest", giftRequestRoute);
 
 app.listen(PORT, () => {
-    console.log("Listening on port 7700");
+    console.log("Listening on port " + PORT);
     connect();
 });
