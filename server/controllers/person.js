@@ -43,11 +43,17 @@ export const getBirthdays = async (req, res, next) => {
 }
 
 export const updatePerson = async (req, res, next) => {
-
+    const form_data = req.body;
     try {
+        if (Object.hasOwnProperty.bind(form_data)('interests')) {
+            if (form_data['interests'].trim() !== "")
+                form_data['interests'] = form_data['interests'].split(',');
+            else
+                form_data['interests'] = [];
+        }
         const person = await Person.findByIdAndUpdate(
             req.params.id,
-            { $set: req.body },
+            { $set: form_data },
             { new: true }
         );
         res.status(200).json(person);

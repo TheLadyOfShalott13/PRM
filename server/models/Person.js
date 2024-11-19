@@ -10,7 +10,7 @@ const PersonSchema = new mongoose.Schema({
     imgName:    	{ type: String,     required: true },
     imp_dates:  	{ type: Array,      required: true },
     interests:  	{ type: Array,      required: false },
-	gifts:  	    { type: Array,      required: false },
+	gifts:  	    { type: String,      required: false },
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'User'

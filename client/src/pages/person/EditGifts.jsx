@@ -14,7 +14,6 @@ const EditGifts = ({ type }) => {
     const [interests, setInterests] = useState([]);
     const [gifts, setGifts] = useState({});
     let [giftList, setGiftList] = useState({});
-    //const [giftList, setGiftList] = useState([]);
     const [pageLoad, setPageLoad] = useState(0);
     const [giftRefresh, setgiftRefresh] = useState(false);
     const thead = ['checkbox','interest','name','website','threshold'];
@@ -34,7 +33,7 @@ const EditGifts = ({ type }) => {
                 if (response.data.length > 0) {
                     response.data.map( function(p) {
                         getInterests(p.interests);
-                        setGiftList(p.gifts[0]);
+                        setGiftList(JSON.parse(p.gifts));
                     });
                 }
                 //console.log('P: Display person:')
@@ -96,10 +95,7 @@ const EditGifts = ({ type }) => {
             Fdata.append("gifts", JSON.stringify(giftList));
             fetch(`${api_url}/api/person/update/${id}`, {
                 method: "PUT",
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({"gifts":giftList}),
+                body: Fdata,
             }).then(() => setgiftRefresh(false));
             //console.log("Synced with mongoDB")
         }
@@ -107,7 +103,9 @@ const EditGifts = ({ type }) => {
 
 
     const selectGiftType = async (e) => {
-        if (typeof giftList === "undefined") giftList = {};
+        if (typeof giftList === "undefined") {
+            giftList = {};
+        }
         giftList[e.target.name] = e.target.value;
         setgiftRefresh(true);
         e.target.checked = true
@@ -117,7 +115,7 @@ const EditGifts = ({ type }) => {
         return (typeof giftList === "undefined")? false : (giftList.hasOwnProperty(objectId) && giftList[objectId]===type)
     }
 
-    if (pageLoad === interests.length) {
+    if (pageLoad === interests.length && interests.length > 0 && Object.keys(gifts).length === interests.length) {
         return (
             <div>
                 <Navbar />
