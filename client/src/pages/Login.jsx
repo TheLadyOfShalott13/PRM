@@ -1,5 +1,3 @@
-// src/pages/Login.jsx
-
 import React from "react";
 import Navbar from "../components/Navbar";
 import "../styles/login.css";
@@ -22,13 +20,14 @@ function Login() {
             (prev) => ({ ...prev, [e.target.id]: e.target.value }));
     };
 
+    const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
     const handleClick = async (e) => {
         e.preventDefault();
         dispatch({ type: "LOGIN_START" });
         try {
             const res =
                 await axios.post(
-                    "http://localhost:7700/api/users/login",
+                    `${api_url}/api/users/login`,
                     credentials);
             dispatch({ type: "LOGIN_SUCCESS", payload: res.data.details });
             navigate('/');

@@ -17,11 +17,11 @@ import { Link } from "react-router-dom";
 import { Tooltip } from 'react-tooltip'
 
 const Options = ({ id }) => {
-
+    const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
     const trashClick = async () => {
         try {
             await axios.delete(
-                `http://localhost:7700/api/person/delete/${id}`,
+                `${api_url}/api/person/delete/${id}`,
                 { withCredentials: false })
             window.location.reload();
         }

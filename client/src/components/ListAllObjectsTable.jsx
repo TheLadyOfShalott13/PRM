@@ -12,11 +12,12 @@ const MainTable = ({ tbody, thead, options, object, attribute }) => {
     table.tbody = tbody.tbody;
     const optName = options?.options_name;
     const OptComponent = React.lazy(() => import('../options/'+optName+'Options.jsx'));
+    const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
 
     useEffect(()=> {
         if (typeof object === 'string' && object.trim()!=='') { //only set states when object parameter has been passed
             async function example(){
-                axios.get(`http://localhost:7700/api/${object}/get/${id}`).then((response) => {
+                axios.get(`${api_url}/api/${object}/get/${id}`).then((response) => {
                     setSelected(response.data[0][attribute]);
                     setrefresh(false)
                 }).catch((err) => { //error state

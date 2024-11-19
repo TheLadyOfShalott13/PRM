@@ -13,6 +13,9 @@ const ViewGift = ({params}) => {
 	const [data, setData] = useState([]);
 	const option_name = 'gift';
 
+	const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
+	const redirect_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_CORS_PORT}`
+
 	useEffect(() => {
 		const loadData = async () => {
 			// Till the data is fetch using API
@@ -21,7 +24,7 @@ const ViewGift = ({params}) => {
 
 			// Await make wait until that
 			// promise settles and return its result
-			axios.get(`http://localhost:3000/gift/get/${id}`).then((response) => {
+			axios.get(`${redirect_url}/gift/get/${id}`).then((response) => {
 					setData(response.data);
 					setResponseStatus(true);
 				}).catch((err) => {
@@ -38,7 +41,7 @@ const ViewGift = ({params}) => {
 		<div className="table-container">
 			<Navbar />
 			<h1>View A Gift</h1>
-			{	responseRecieved ? data.length>0 ? <img className="viewImage" src={`http://localhost:7700/uploads/${data[0].imgName}`} alt={data[0].imgName} ></img> : <h1 className="feedback-header">Cannot Find Image</h1> : <h1 className="feedback-header">Loading Image</h1> }
+			{	responseRecieved ? data.length>0 ? <img className="viewImage" src={`${api_url}/uploads/${data[0].imgName}`} alt={data[0].imgName} ></img> : <h1 className="feedback-header">Cannot Find Image</h1> : <h1 className="feedback-header">Loading Image</h1> }
 			{	responseRecieved ? data.length>0 ? <VerticalTable attributes={attributes} data={data} option={option_name} /> : <h1 className="feedback-header">Cannot Find Item</h1> : <h1 className="feedback-header">Loading Table</h1> }
         </div>
     )

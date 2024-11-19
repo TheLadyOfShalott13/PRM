@@ -24,9 +24,12 @@ const EditGifts = ({ type }) => {
         DISLIKED = "DISLIKED";
     let row=0,cell=0;
 
+    const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
+    const redirect_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_CORS_PORT}`
+
     useEffect(()=> {
         async function getPerson(){
-            axios.get(`http://localhost:7700/api/person/get/${id}`).then((response) => {
+            axios.get(`${api_url}/api/person/get/${id}`).then((response) => {
                 setPerson(response.data);
                 if (response.data.length > 0) {
                     response.data.map( function(p) {
@@ -46,7 +49,7 @@ const EditGifts = ({ type }) => {
         async function getInterests(ids){
             //console.log("I: DISPLAY IDS: ");   
             //console.log(ids);
-            axios.post(`http://localhost:7700/api/interest/getMultipleByIds`, {
+            axios.post(`${api_url}/api/interest/getMultipleByIds`, {
                 "ids": ids
             }, {
                 "headers": {
@@ -67,7 +70,7 @@ const EditGifts = ({ type }) => {
         }
 
         async function getGifts(giftIds,interestId, key){
-            axios.post(`http://localhost:7700/api/gift/getMultipleByIds`, {
+            axios.post(`${api_url}/api/gift/getMultipleByIds`, {
                     "ids": giftIds
                 }, {
                     "headers": {

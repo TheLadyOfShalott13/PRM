@@ -10,6 +10,9 @@ const ViewGift = ({params}) => {
 	const [responseRecieved, setResponseStatus] = useState(false);
 	const [data, setData] = useState([]);
 
+	const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
+	const redirect_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_CORS_PORT}`
+
 	useEffect(() => {
 		const loadData = async () => {
 			// Till the data is fetch using API
@@ -18,7 +21,7 @@ const ViewGift = ({params}) => {
 
 			// Await make wait until that
 			// promise settles and return its result
-			axios.get(`http://localhost:3000/giftRequest/get/${id}`).then((response) => {
+			axios.get(`${api_url}/api/giftRequest/get/${id}`).then((response) => {
 					setData(response.data);
 					setResponseStatus(true);
 				}).catch((err) => {

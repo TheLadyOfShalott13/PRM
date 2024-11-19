@@ -8,6 +8,8 @@ const CreateGift = () => {
     const [info, setInfo] = useState({});
     const [file, setFile] = useState(null);
     const { user } = useContext(AuthContext);
+    const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
+    const redirect_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_CORS_PORT}`
 
     const handleChange = (e) => {
         setInfo(
@@ -30,11 +32,11 @@ const CreateGift = () => {
             data.append("imgName",file.name);
             data.append("user", user._id);
             try {
-                await fetch("http://localhost:7700/api/gift/create", {
+                await fetch(`${api_url}/api/gift/create`, {
                     method: "POST",
                     body: data,
                 });
-                window.location.assign('http://localhost:3000/gifts');
+                window.location.assign(`${redirect_url}/gifts`);
             } catch (err) {
                 console.log(err);
             }

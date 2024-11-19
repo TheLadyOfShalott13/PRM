@@ -16,10 +16,13 @@ const CreateGift = () => {
     const { user } = useContext(AuthContext);
     const statusOptions = [{ value: "purchased", label: "purchased"},{ value: "received", label: "received"},{ value: "completed", label: "complete"}];
 
+    const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
+    const redirect_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_CORS_PORT}`
+
     useEffect(()=>{
 
         async function getGiftees(){
-            axios.get(`http://localhost:7700/api/person/list/${user._id}`).then((response) => {
+            axios.get(`${api_url}/api/person/list/${user._id}`).then((response) => {
                     if (response.data.length > 0) {
                         response.data.map( function(p,i) {
                             gifteeOptions[i] = { value: p._id, label: p.name}
@@ -34,7 +37,7 @@ const CreateGift = () => {
         }
 
         async function getGiftOptions() {
-            axios.get(`http://localhost:7700/api/gift/list/${user._id}`).then((response) => {
+            axios.get(`${api_url}/api/gift/list/${user._id}`).then((response) => {
                     if (response.data.length > 0) {
                         response.data.map( function(g,k) {
                             giftOptions[k] = { value: g._id, label: g.name}
@@ -66,14 +69,14 @@ const CreateGift = () => {
         e.preventDefault();
         info['user']=user._id;
         try {
-            await fetch("http://localhost:7700/api/giftRequest/create", {
+            await fetch(`${api_url}/api/giftRequest/create`, {
                 method: "POST",
                 body: JSON.stringify(info),
                 headers: {
                     "Content-Type": "application/json"
                 }
             })
-            window.location.assign('http://localhost:3000/GiftRequests');
+            window.location.assign(`${redirect_url}/GiftRequests`);
         } catch (err) {
             console.log(err);
         }

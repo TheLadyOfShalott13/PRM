@@ -7,11 +7,11 @@ import { Link } from "react-router-dom";
 import { Tooltip } from 'react-tooltip'
 
 const Options = ({ id }) => {
-
+    const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
     const completeRequest = async () => {
         try {
             await axios.put(
-                `http://localhost:7700/api/giftRequest/update/${id}`,
+                `${api_url}/api/giftRequest/update/${id}`,
                 { status: "complete" },
                 {
                     "headers": {

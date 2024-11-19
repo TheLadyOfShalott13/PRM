@@ -1,5 +1,3 @@
-// src/pages/Register.jsx
-
 import React from "react";
 import Navbar from "../components/Navbar";
 import "../styles/register.css";

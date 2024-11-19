@@ -18,9 +18,12 @@ const EditPersonsInterests = ({ type }) => {
     const thead = ['checkbox','name','category'];
     const options_name = 'interest';
 
+    const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
+    const redirect_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_CORS_PORT}`
+
     useEffect(()=> {
         async function getPerson(){
-            axios.get(`http://localhost:7700/api/person/get/${id}`).then((response) => {
+            axios.get(`${api_url}/api/person/get/${id}`).then((response) => {
                 setPerson(response.data);
                 setRefresh(false);
             }).catch((err) => { //error state
@@ -30,7 +33,7 @@ const EditPersonsInterests = ({ type }) => {
         }
 
         async function getInterests(){
-            axios.get(`http://localhost:7700/api/interest/list/${user._id}`).then((response) => {
+            axios.get(`${api_url}/api/interest/list/${user._id}`).then((response) => {
                 setInterests(response.data);
                 setPageLoad(true);
             }).catch((err) => { //error state

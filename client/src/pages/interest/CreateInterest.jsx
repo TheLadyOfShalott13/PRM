@@ -9,6 +9,9 @@ const CreateInterest = () => {
     const [file, setFile] = useState(null);
     const { user } = useContext(AuthContext);
 
+    const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
+    const redirect_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_CORS_PORT}`
+
     const handleChange = (e) => {
         setInfo(
             (prev) => ({
@@ -29,11 +32,11 @@ const CreateInterest = () => {
             data.append("imgName",file.name);
             data.append("user", user._id);
             try {
-                await fetch("http://localhost:7700/api/interest/create", {
+                await fetch(`${api_url}/api/interest/create`, {
                     method: "POST",
                     body: data,
                 });
-                window.location.assign('http://localhost:3000/interests');
+                window.location.assign(`${redirect_url}/interests`);
             } catch (err) {
                 console.log(err);
             }

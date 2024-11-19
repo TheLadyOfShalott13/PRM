@@ -12,6 +12,9 @@ const EditGift = ( {params} ) => {
     const [responseRecieved, setResponseStatus] = useState(false);
 	const [data, setData] = useState([]);
 
+    const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
+    const redirect_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_CORS_PORT}`
+
     useEffect(() => {
 		const loadData = async () => {
 			// Till the data is fetch using API
@@ -20,7 +23,7 @@ const EditGift = ( {params} ) => {
 
 			// Await make wait until that
 			// promise settles and return its result
-			axios.get(`http://localhost:3000/gift/get/${id}`).then((response) => {
+			axios.get(`${redirect_url}/gift/get/${id}`).then((response) => {
 		      	setData(response.data);
 		    	setResponseStatus(true);
 		    }).catch((err) => {
@@ -53,11 +56,11 @@ const EditGift = ( {params} ) => {
             Fdata.append("imgName",file.name);
         }
         try {
-            await fetch(`http://localhost:7700/api/gift/update/${id}`, {
+            await fetch(`${api_url}/api/gift/update/${id}`, {
                 method: "PUT",
                 body: Fdata,
             });
-            window.location.assign('http://localhost:3000/gifts');
+            window.location.assign(`${redirect_url}/gifts`);
         } catch (err) {
             console.log(err);
         }
