@@ -1,5 +1,3 @@
-// src/customers/Navbar.jsx
-
 import '../styles/navbar.css'
 import { useContext } from 'react';
 import { faBars } from '@fortawesome/free-solid-svg-icons'

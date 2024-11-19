@@ -17,7 +17,7 @@ import { Link } from "react-router-dom";
 import { Tooltip } from 'react-tooltip'
 
 const Options = ({ id }) => {
-    const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
+    const api_url = process.env.REACT_APP_BACKEND_URL
     const trashClick = async () => {
         try {
             await axios.delete(

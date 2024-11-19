@@ -18,8 +18,8 @@ const EditPersonsInterests = ({ type }) => {
     const thead = ['checkbox','name','category'];
     const options_name = 'interest';
 
-    const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
-    const redirect_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_CORS_PORT}`
+    const api_url = process.env.REACT_APP_BACKEND_URL
+    const redirect_url = process.env.REACT_APP_FRONTEND_URL
 
     useEffect(()=> {
         async function getPerson(){

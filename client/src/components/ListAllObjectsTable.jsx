@@ -12,7 +12,7 @@ const MainTable = ({ tbody, thead, options, object, attribute, formjson }) => {
     table.tbody = tbody.tbody;
     const optName = options?.options_name;
     const OptComponent = React.lazy(() => import('../options/'+optName+'Options.jsx'));
-    const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
+    const api_url = process.env.REACT_APP_BACKEND_URL
 
     useEffect(()=> {
         if (typeof object === 'string' && object.trim()!=='') { //only set states when object parameter has been passed

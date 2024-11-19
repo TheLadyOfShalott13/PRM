@@ -9,8 +9,8 @@ const CreatePerson = () => {
     const [file, setFile] = useState(null);
     const { user } = useContext(AuthContext);
 
-    const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
-    const redirect_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_CORS_PORT}`
+    const api_url = process.env.REACT_APP_BACKEND_URL
+    const redirect_url = process.env.REACT_APP_FRONTEND_URL
 
     const handleChange = (e) => {
         setInfo(

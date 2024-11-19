@@ -26,7 +26,7 @@ const Calendar = ({ month, year }) => {
     const [mm, setMonth] = useState(month);
     const [dataLoaded, setdataLoaded] = useState(false);
     const [birthdays, setBirthdays] = useState({});
-    const api_url = `http://${process.env.REACT_APP_SERVER_URL}:${process.env.REACT_APP_API_PORT}`
+    const api_url = process.env.REACT_APP_BACKEND_URL
 
     useEffect(() => {
         axios.post(
