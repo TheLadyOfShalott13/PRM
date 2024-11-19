@@ -67,7 +67,7 @@ const EditPersonsInterests = ({ type }) => {
                     </div>
                     <br></br>
                     <Suspense fallback={<div>Loading...</div>}>
-                        <MainTable tbody={{tbody}} thead={{thead}} options={{options_name}} object="person" attribute="interests" />
+                        <MainTable tbody={{tbody}} thead={{thead}} options={{options_name}} object="person" attribute="interests" formjson={false} />
                     </Suspense>
                 </div>
             </div>

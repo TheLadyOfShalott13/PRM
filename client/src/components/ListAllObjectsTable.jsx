@@ -1,9 +1,9 @@
 import React, {Suspense, useState, useEffect} from 'react'
 import { Table } from 'react-bootstrap';
-import {useParams} from "react-router-dom";
+import {json, useParams} from "react-router-dom";
 import axios from "axios";
 
-const MainTable = ({ tbody, thead, options, object, attribute }) => {
+const MainTable = ({ tbody, thead, options, object, attribute, formjson }) => {
     const {id} = useParams();
     var table = {}
     const [selected, setSelected] = useState([]);
@@ -37,15 +37,24 @@ const MainTable = ({ tbody, thead, options, object, attribute }) => {
             }
 
             if (!refresh) {
-                const Fdata={};
-                Fdata[attribute] = selected;
-                fetch(`http://localhost:7700/api/${object}/update/${id}`, {
-                    method: "PUT",
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(Fdata),
-                });
+                if (typeof formjson!=='undefined' && !formjson) { //form-data
+                    const Fdata= new FormData();
+                    Fdata.append(attribute,selected);
+                    fetch(`${api_url}/api/${object}/update/${id}`, {
+                        method: "PUT",
+                        body: Fdata,
+                    });
+                }else { //else consider it to be json
+                    const Fdata={};
+                    Fdata[attribute] = selected;
+                    fetch(`${api_url}/api/${object}/update/${id}`, {
+                        method: "PUT",
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                        body: Fdata,
+                    });
+                }
                 //console.log("Synced with mongoDB")
             }
         }
@@ -57,9 +66,8 @@ const MainTable = ({ tbody, thead, options, object, attribute }) => {
             setSelected(selected.filter(id => id !== e.target.value)); //remove the ID from list
         }
         else {
-            setSelected([ e.target.value,...selected], () => {
-                e.target.checked = true;
-            }); //add the ID to the list
+            setSelected([ e.target.value,...selected]); //add the ID to the list
+            e.target.checked = true;
         }
     };
 
